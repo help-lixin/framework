@@ -12,7 +12,7 @@ import help.lixin.framework.dynamic.datasource.context.DataSourceContext;
 import help.lixin.framework.test.service.ILanguage;
 
 @Service
-public class Language implements ILanguage {
+public class LanguageJdbcTemplate implements ILanguage {
 
 	@Resource
 	private JdbcTemplate jdbcTemplate;
