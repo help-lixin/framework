@@ -1,0 +1,15 @@
+help/lixin/framework/dynamic/datasource/service/DataSourceParams.class
+help/lixin/framework/dynamic/datasource/service/DataSourceMetaMediator.class
+help/lixin/framework/dynamic/datasource/service/DataSourceType.class
+help/lixin/framework/dynamic/datasource/factory/ICreateDataSource.class
+help/lixin/framework/dynamic/datasource/VirtualDataSource.class
+help/lixin/framework/dynamic/datasource/factory/CreateDataSourceMediator.class
+help/lixin/framework/dynamic/datasource/VirtuaDataSourceDelegator.class
+help/lixin/framework/dynamic/datasource/DataSourceMediator.class
+help/lixin/framework/dynamic/datasource/service/DataSourceMetaServiceChain.class
+help/lixin/framework/dynamic/datasource/filter/DefaultGetDataSourceService.class
+help/lixin/framework/dynamic/datasource/service/impl/RemoteDataSourceMetaService.class
+help/lixin/framework/dynamic/datasource/filter/GetDataSourceService.class
+help/lixin/framework/dynamic/datasource/service/impl/LocalDataSourceMetaService.class
+help/lixin/framework/dynamic/datasource/service/IDataSourceMetaService.class
+help/lixin/framework/dynamic/datasource/factory/DruidCreateDataSource.class
