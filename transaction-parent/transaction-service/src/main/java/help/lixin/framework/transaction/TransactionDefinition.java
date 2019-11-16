@@ -6,7 +6,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 
-class TransactionDefinition {
+public class TransactionDefinition {
 	// 默认的超时时间
 	private static final int TIMEOUT_DEFAULT = -1;
 
