@@ -2,13 +2,13 @@ package help.lixin.framework.transaction.aop.aspectj;
 
 import java.lang.reflect.Method;
 
-import javax.annotation.Resource;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 
@@ -17,34 +17,36 @@ import help.lixin.framework.transaction.TransactionDefinition;
 import help.lixin.framework.transaction.TransactionDefinitionParserDelegator;
 
 @Aspect
+@Order(Ordered.HIGHEST_PRECEDENCE + 100)
 public class TrnsactionAspect {
-	@Pointcut("@annotation(org.springframework.stereotype.Service)")
+	@Pointcut("@within(org.springframework.stereotype.Service)")
 	public void serviceAnnotationPointcut() {
 	}
 
 	// 这个时候引入Dubbo注解是否合适?
 	// TODO lixin
-	@Pointcut("@annotation(org.apache.dubbo.config.annotation.Service)")
-	public void dubboServiceAnnotationPointcut() {
-	}
+	// @Pointcut("@within(org.apache.dubbo.config.annotation.Service)")
+	// public void dubboServiceAnnotationPointcut() {
+	// }
 
-	@Pointcut("@annotation(org.springframework.stereotype.Repository)")
+	@Pointcut("@within(org.springframework.stereotype.Repository)")
 	public void repositoryAnnotationPointcut() {
 	}
 
-	@Pointcut("@annotation(org.springframework.stereotype.Component)")
+	// @annotation 拦截的是方法
+	// @within 拦截的是类
+	@Pointcut("@within(org.springframework.stereotype.Component)")
 	public void componentAnnotationPointcut() {
 	}
-	
+
 	private TransactionDefinitionParserDelegator transactionDefinitionParserDelegator;
 
-	
 	public void setTransactionDefinitionParserDelegator(
 			TransactionDefinitionParserDelegator transactionDefinitionParserDelegator) {
 		this.transactionDefinitionParserDelegator = transactionDefinitionParserDelegator;
 	}
 
-	@Around("serviceAnnotationPointcut() || dubboServiceAnnotationPointcut() || repositoryAnnotationPointcut() || componentAnnotationPointcut()")
+	@Around("serviceAnnotationPointcut() || repositoryAnnotationPointcut() || componentAnnotationPointcut()")
 	public Object exec(final ProceedingJoinPoint joinPoint) throws Throwable {
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 		Method method = methodSignature.getMethod();
@@ -58,6 +60,7 @@ public class TrnsactionAspect {
 				try {
 					return joinPoint.proceed();
 				} catch (Throwable e) {
+					// TODO lixin
 					e.printStackTrace();
 				}
 				return null;

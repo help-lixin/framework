@@ -12,7 +12,6 @@ public class Application {
 		ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
 		ILanguage language = ctx.getBean(ILanguage.class);
 //		language.queryAll();
-		
 		language.save(null);
 		
 		System.out.println("====================");

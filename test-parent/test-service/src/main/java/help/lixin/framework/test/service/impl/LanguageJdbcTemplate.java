@@ -7,11 +7,13 @@ import javax.annotation.Resource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import help.lixin.framework.dynamic.datasource.context.DataSourceContext;
 import help.lixin.framework.test.service.ILanguage;
 
 @Service
+@Transactional
 public class LanguageJdbcTemplate implements ILanguage {
 
 	@Resource
@@ -28,11 +30,11 @@ public class LanguageJdbcTemplate implements ILanguage {
 
 	@Override
 	public int save(Map<String, String> language) {
-		DataSourceContext.set("test");
 		String sql = "INSERT INTO fw_language(name,code,enabled_flag) VALUES(?,?,?)";
 		// 自动commit
 		int result = jdbcTemplate.update(sql, new Object[] { "lixin", "lixin", "Y" });
 		result = jdbcTemplate.update(sql, new Object[] { "test", "test", "N" });
-		return result;
+		throw new RuntimeException("test");
+//		return result;
 	}
 }

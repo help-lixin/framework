@@ -24,12 +24,19 @@ public class DynamicDataSourceAutoConfiguration {
 	@Resource
 	private Config config;
 
+	/**
+	 * 元数据服务
+	 * 
+	 * @return
+	 */
 	@Bean
 	public List<IDataSourceMetaService> metaServices() {
 		List<IDataSourceMetaService> metaList = new ArrayList<IDataSourceMetaService>();
+		// 本地加载元数据
 		LocalDataSourceMetaService localDataSourceMetaService = new LocalDataSourceMetaService();
 		localDataSourceMetaService.setConfig(config);
 
+		// 远程加载元数据
 		RemoteDataSourceMetaService remoteDataSourceMetaService = new RemoteDataSourceMetaService();
 		remoteDataSourceMetaService.setConfig(config);
 
@@ -38,6 +45,11 @@ public class DynamicDataSourceAutoConfiguration {
 		return metaList;
 	}
 
+	/**
+	 * 元数据责任链
+	 * 
+	 * @return
+	 */
 	@Bean
 	public IDataSourceMetaService dataSourceMetaService() {
 		IDataSourceMetaService dataSourceMetaService = new DataSourceMetaServiceChain();
@@ -52,6 +64,11 @@ public class DynamicDataSourceAutoConfiguration {
 		return dataSourceService;
 	}
 
+	/**
+	 * 元数据代理处理对象
+	 * 
+	 * @return
+	 */
 	@Bean
 	public VirtuaDataSourceDelegator dataSourceDelegator() {
 		VirtuaDataSourceDelegator virtuaDataSourceDelegator = new VirtuaDataSourceDelegator();
