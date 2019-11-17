@@ -16,36 +16,36 @@ import help.lixin.framework.transaction.aop.aspectj.TrnsactionAspect;
 @ConditionalOnClass(value = { DataSource.class })
 @ConditionalOnBean(value = { DataSource.class })
 public class TransactionAutoConfiguration {
-	@Resource
-	private DataSource dataSource;
-
 	// 设置事务管理器
 	@Bean
-	public PlatformTransactionManager transactionManager() {
+	public PlatformTransactionManager transactionManager(DataSource dataSource) {
 		return new DataSourceTransactionManager(dataSource);
 	}
 
 	// 配置事务管理集
 	@Bean
-	public PlatformTransactionManagerFactory platformTransactionManagerFactory() {
+	public PlatformTransactionManagerFactory platformTransactionManagerFactory(
+			PlatformTransactionManager transactionManager) {
 		PlatformTransactionManagerFactory platformTransactionManagerFactory = new DefaultTransactionManagerFactory();
-		platformTransactionManagerFactory.setTransactionManager("transactionManager", transactionManager());
+		platformTransactionManagerFactory.setTransactionManager("transactionManager", transactionManager);
 		return platformTransactionManagerFactory;
 	}
 
 	// 对@Transactional进行解析
 	@Bean
-	public TransactionDefinitionParserDelegator transactionDefinitionParserDelegator() {
+	public TransactionDefinitionParserDelegator transactionDefinitionParserDelegator(
+			PlatformTransactionManagerFactory platformTransactionManagerFactory) {
 		TransactionDefinitionParserDelegator parserDelegator = new TransactionDefinitionParserDelegator(
-				platformTransactionManagerFactory());
+				platformTransactionManagerFactory);
 		return parserDelegator;
 	}
 
 	// 事务拦截器(对Service/Repository/Component进行拦截)
 	@Bean
-	public TrnsactionAspect trnsactionAspect() {
+	public TrnsactionAspect trnsactionAspect(
+			TransactionDefinitionParserDelegator transactionDefinitionParserDelegator) {
 		TrnsactionAspect trnsactionAspect = new TrnsactionAspect();
-		trnsactionAspect.setTransactionDefinitionParserDelegator(transactionDefinitionParserDelegator());
+		trnsactionAspect.setTransactionDefinitionParserDelegator(transactionDefinitionParserDelegator);
 		return trnsactionAspect;
 	}
 }
