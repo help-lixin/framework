@@ -6,11 +6,13 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import help.lixin.framework.config.Config;
+import help.lixin.framework.dynamic.datasource.aop.aspectj.DynamicDataSourceAspect;
 import help.lixin.framework.dynamic.datasource.filter.DefaultGetDataSourceService;
 import help.lixin.framework.dynamic.datasource.filter.GetDataSourceService;
 import help.lixin.framework.dynamic.datasource.service.DataSourceMetaServiceChain;
@@ -19,10 +21,14 @@ import help.lixin.framework.dynamic.datasource.service.impl.LocalDataSourceMetaS
 import help.lixin.framework.dynamic.datasource.service.impl.RemoteDataSourceMetaService;
 
 @Configuration
+@ConditionalOnBean(value = { Config.class, DataSourceCallback.class })
 public class DynamicDataSourceAutoConfiguration {
 
 	@Resource
 	private Config config;
+
+	@Resource
+	private DataSourceCallback dataSourceCallback;
 
 	/**
 	 * 元数据服务
@@ -83,5 +89,12 @@ public class DynamicDataSourceAutoConfiguration {
 		VirtualDataSource virtualDataSource = new VirtualDataSource();
 		virtualDataSource.setDataSourceDelegator(dataSourceDelegator());
 		return virtualDataSource;
+	}
+
+	@Bean
+	public DynamicDataSourceAspect dynamicDataSourceAspect() {
+		DynamicDataSourceAspect dynamicDataSourceAspect = new DynamicDataSourceAspect();
+		dynamicDataSourceAspect.setDataSourceCallback(dataSourceCallback);
+		return dynamicDataSourceAspect;
 	}
 }

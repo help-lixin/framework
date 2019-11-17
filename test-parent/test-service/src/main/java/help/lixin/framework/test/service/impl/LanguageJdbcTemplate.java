@@ -34,7 +34,7 @@ public class LanguageJdbcTemplate implements ILanguage {
 		// 自动commit
 		int result = jdbcTemplate.update(sql, new Object[] { "lixin", "lixin", "Y" });
 		result = jdbcTemplate.update(sql, new Object[] { "test", "test", "N" });
-		throw new RuntimeException("test");
-//		return result;
+//		throw new RuntimeException("test");
+		return result;
 	}
 }

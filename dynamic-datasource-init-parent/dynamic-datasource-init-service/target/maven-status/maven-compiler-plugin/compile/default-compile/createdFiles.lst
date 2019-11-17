@@ -12,4 +12,5 @@ help/lixin/framework/dynamic/datasource/service/impl/RemoteDataSourceMetaService
 help/lixin/framework/dynamic/datasource/filter/GetDataSourceService.class
 help/lixin/framework/dynamic/datasource/service/impl/LocalDataSourceMetaService.class
 help/lixin/framework/dynamic/datasource/service/IDataSourceMetaService.class
+help/lixin/framework/dynamic/datasource/DataSourceCallback.class
 help/lixin/framework/dynamic/datasource/factory/DruidCreateDataSource.class

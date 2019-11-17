@@ -23,12 +23,6 @@ public class TrnsactionAspect {
 	public void serviceAnnotationPointcut() {
 	}
 
-	// 这个时候引入Dubbo注解是否合适?
-	// TODO lixin
-	// @Pointcut("@within(org.apache.dubbo.config.annotation.Service)")
-	// public void dubboServiceAnnotationPointcut() {
-	// }
-
 	@Pointcut("@within(org.springframework.stereotype.Repository)")
 	public void repositoryAnnotationPointcut() {
 	}
@@ -46,10 +40,11 @@ public class TrnsactionAspect {
 		this.transactionDefinitionParserDelegator = transactionDefinitionParserDelegator;
 	}
 
-	@Around("serviceAnnotationPointcut() || repositoryAnnotationPointcut() || componentAnnotationPointcut()")
+	@Around("serviceAnnotationPointcut() || repositoryAnnotationPointcut()")
 	public Object exec(final ProceedingJoinPoint joinPoint) throws Throwable {
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 		Method method = methodSignature.getMethod();
+		//  TODO lixin 考虑要放到缓存里
 		TransactionDefinition transactionDefinition = transactionDefinitionParserDelegator.parser(method);
 		// 事务定义依赖:事务管理
 		Executor executor = new Executor(transactionDefinition);

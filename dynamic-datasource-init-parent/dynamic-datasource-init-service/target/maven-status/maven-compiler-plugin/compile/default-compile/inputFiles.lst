@@ -12,4 +12,5 @@
 /Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/VirtuaDataSourceDelegator.java
 /Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/factory/CreateDataSourceMediator.java
 /Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/filter/GetDataSourceService.java
+/Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/DataSourceCallback.java
 /Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/service/DataSourceMetaServiceChain.java
