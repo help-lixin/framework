@@ -20,5 +20,6 @@
     <module>dynamic-datasource-init-parent</module>
     <module>transaction-parent</module>
     <module>test-parent</module>
+    <module>zuul2-basic-guide</module>
   </modules>
 </project>
