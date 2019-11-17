@@ -26,5 +26,6 @@
   <modules>
     <module>transaction-service</module>
     <module>transaction-wrapper</module>
+    <module>transaction-start</module>
   </modules>
 </project>
