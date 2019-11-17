@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.support.TransactionCallback;
 
+import help.lixin.framework.test.BaseTest;
+
 public class TransactionTest extends BaseTest {
 
 	public PlatformTransactionManager getPlatformTransactionManager() {

@@ -8,21 +8,24 @@ import org.junit.Test;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
-public class TransactionDefinitionParserDelegatorTest extends BaseTest{
+import help.lixin.framework.test.BaseTest;
+
+public class TransactionDefinitionParserDelegatorTest extends BaseTest {
 
 	@Test
 	public void testParser() {
 		// 获得数据源
 		DataSource ds = getDataSource();
-		
+
 		PlatformTransactionManager transactionManager = new DataSourceTransactionManager(ds);
 		// 创建事务管理器
 		PlatformTransactionManagerFactory platformTransactionManagerFactory = new DefaultTransactionManagerFactory();
 		platformTransactionManagerFactory.setTransactionManager("transactionManager", transactionManager);
-		
+
 		// 事务定义解析器
-		TransactionDefinitionParserDelegator parserDelegator = new TransactionDefinitionParserDelegator(platformTransactionManagerFactory);
-		
+		TransactionDefinitionParserDelegator parserDelegator = new TransactionDefinitionParserDelegator(
+				platformTransactionManagerFactory);
+
 		Method[] methods = TestService.class.getMethods();
 		for (Method method : methods) {
 			if (method.getName().equals("test1") || method.getName().equals("test2")) {

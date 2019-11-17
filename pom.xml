@@ -13,6 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
   <modules>
+    <module>test-framework-parent</module>
     <module>config-parent</module>
     <module>bean-definition-registry-parent</module>
     <module>dynamic-datasource-parent</module>
