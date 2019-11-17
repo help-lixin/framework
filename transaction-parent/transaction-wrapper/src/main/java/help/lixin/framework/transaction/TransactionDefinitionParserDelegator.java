@@ -35,13 +35,6 @@ public class TransactionDefinitionParserDelegator {
 		if (null == transactional) {
 			return null;
 		}
-		
-		// 不需要再解析了.直接从Medaotr中获取
-		if(isParseClassAnnotation){
-			
-		}
-		
-		//
 		String transactionManagerName = transactional.transactionManager();
 		if (StringUtils.isEmpty(transactionManagerName)) {
 			transactionManagerName = transactional.value();
