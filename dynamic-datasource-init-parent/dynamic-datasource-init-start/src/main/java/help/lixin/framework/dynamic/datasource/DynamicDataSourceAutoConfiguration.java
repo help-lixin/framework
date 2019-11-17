@@ -3,7 +3,6 @@ package help.lixin.framework.dynamic.datasource;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -23,20 +22,13 @@ import help.lixin.framework.dynamic.datasource.service.impl.RemoteDataSourceMeta
 @Configuration
 @ConditionalOnBean(value = { Config.class, DataSourceCallback.class })
 public class DynamicDataSourceAutoConfiguration {
-
-	@Resource
-	private Config config;
-
-	@Resource
-	private DataSourceCallback dataSourceCallback;
-
 	/**
 	 * 元数据服务
 	 * 
 	 * @return
 	 */
 	@Bean
-	public List<IDataSourceMetaService> metaServices() {
+	public List<IDataSourceMetaService> metaServices(Config config) {
 		List<IDataSourceMetaService> metaList = new ArrayList<IDataSourceMetaService>();
 		// 本地加载元数据
 		LocalDataSourceMetaService localDataSourceMetaService = new LocalDataSourceMetaService();
@@ -57,16 +49,16 @@ public class DynamicDataSourceAutoConfiguration {
 	 * @return
 	 */
 	@Bean
-	public IDataSourceMetaService dataSourceMetaService() {
+	public IDataSourceMetaService dataSourceMetaService(List<IDataSourceMetaService> metaServices) {
 		IDataSourceMetaService dataSourceMetaService = new DataSourceMetaServiceChain();
-		dataSourceMetaService.setMetaChain(metaServices());
+		dataSourceMetaService.setMetaChain(metaServices);
 		return dataSourceMetaService;
 	}
 
 	@Bean
-	public GetDataSourceService dataSourceService() {
+	public GetDataSourceService dataSourceService(IDataSourceMetaService dataSourceMetaService) {
 		GetDataSourceService dataSourceService = new DefaultGetDataSourceService();
-		dataSourceService.setMeataService(dataSourceMetaService());
+		dataSourceService.setMeataService(dataSourceMetaService);
 		return dataSourceService;
 	}
 
@@ -76,23 +68,23 @@ public class DynamicDataSourceAutoConfiguration {
 	 * @return
 	 */
 	@Bean
-	public VirtuaDataSourceDelegator dataSourceDelegator() {
+	public VirtuaDataSourceDelegator dataSourceDelegator(GetDataSourceService dataSourceService) {
 		VirtuaDataSourceDelegator virtuaDataSourceDelegator = new VirtuaDataSourceDelegator();
-		virtuaDataSourceDelegator.setGetDataSourceService(dataSourceService());
+		virtuaDataSourceDelegator.setGetDataSourceService(dataSourceService);
 		return virtuaDataSourceDelegator;
 	}
 
 	// 当容器里没有指定的Bean时才创建该Bean
 	@Bean
 	@ConditionalOnMissingBean
-	public DataSource dataSource() {
+	public DataSource dataSource(VirtuaDataSourceDelegator dataSourceDelegator) {
 		VirtualDataSource virtualDataSource = new VirtualDataSource();
-		virtualDataSource.setDataSourceDelegator(dataSourceDelegator());
+		virtualDataSource.setDataSourceDelegator(dataSourceDelegator);
 		return virtualDataSource;
 	}
 
 	@Bean
-	public DynamicDataSourceAspect dynamicDataSourceAspect() {
+	public DynamicDataSourceAspect dynamicDataSourceAspect(DataSourceCallback dataSourceCallback) {
 		DynamicDataSourceAspect dynamicDataSourceAspect = new DynamicDataSourceAspect();
 		dynamicDataSourceAspect.setDataSourceCallback(dataSourceCallback);
 		return dynamicDataSourceAspect;
