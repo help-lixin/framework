@@ -50,7 +50,7 @@ public class DynamicDataSourceAspect {
 	@Around("dynamicDataSourceServiceAnnotationPointcut() || dynamicDataSourceRepositoryAnnotationPointcut()")
 	public Object exec(final ProceedingJoinPoint point) throws Throwable {
 		// 先获取到原来的数据源名称
-		String oldDataSourceName = DataSourceContext.get();
+		String oldDataSourceName = DataSourceContext.datasource();
 		Object target = point.getTarget();
 		Class<?> targetClass = target.getClass();
 		MethodSignature signature = (MethodSignature) point.getSignature();
@@ -60,11 +60,11 @@ public class DynamicDataSourceAspect {
 		Object result = null;
 		try {
 			// 调用之前设置新的数据源名称
-			DataSourceContext.set(newDataSroueName);
+			DataSourceContext.datasource(newDataSroueName);
 			result = point.proceed();
 		} finally {
 			// 调用之后还原老的数据源名称
-			DataSourceContext.set(oldDataSourceName);
+			DataSourceContext.datasource(oldDataSourceName);
 		}
 		return result;
 	}

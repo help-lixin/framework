@@ -65,7 +65,7 @@ public class VirtualDataSource implements DataSource {
 
 	@Override
 	public Connection getConnection(String username, String password) throws SQLException {
-		String dataSourceName = DataSourceContext.get();
+		String dataSourceName = DataSourceContext.datasource();
 		return dataSourceDelegator.getConnection(dataSourceName);
 	}
 }
