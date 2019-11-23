@@ -19,18 +19,10 @@ import help.lixin.framework.transaction.TransactionDefinitionParserDelegator;
 @Aspect
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)
 public class TrnsactionAspect {
-	@Pointcut("@within(org.springframework.stereotype.Service)")
-	public void serviceAnnotationPointcut() {
-	}
-
-	@Pointcut("@within(org.springframework.stereotype.Repository)")
-	public void repositoryAnnotationPointcut() {
-	}
-
 	// @annotation 拦截的是方法
 	// @within 拦截的是类
-	@Pointcut("@within(org.springframework.stereotype.Component)")
-	public void componentAnnotationPointcut() {
+	@Pointcut("@within(org.springframework.transaction.annotation.Transactional) || @annotation(org.springframework.transaction.annotation.Transactional)")
+	public void transactionalAnnotationPointcut() {
 	}
 
 	private TransactionDefinitionParserDelegator transactionDefinitionParserDelegator;
@@ -40,7 +32,7 @@ public class TrnsactionAspect {
 		this.transactionDefinitionParserDelegator = transactionDefinitionParserDelegator;
 	}
 
-	@Around("serviceAnnotationPointcut() || repositoryAnnotationPointcut()")
+	@Around("transactionalAnnotationPointcut()")
 	public Object exec(final ProceedingJoinPoint joinPoint) throws Throwable {
 		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 		Method method = methodSignature.getMethod();
