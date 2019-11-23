@@ -21,5 +21,6 @@
     <module>transaction-parent</module>
     <module>test-parent</module>
     <module>zuul2-basic-guide</module>
+    <module>mybatis-integration-parent</module>
   </modules>
 </project>
