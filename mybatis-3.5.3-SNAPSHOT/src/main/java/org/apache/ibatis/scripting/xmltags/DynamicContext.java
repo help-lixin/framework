@@ -16,15 +16,18 @@
 package org.apache.ibatis.scripting.xmltags;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.StringJoiner;
-
-import ognl.OgnlContext;
-import ognl.OgnlRuntime;
-import ognl.PropertyAccessor;
 
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
+
+import help.lixin.framework.mybatis.integration.context.VarContext;
+import ognl.OgnlContext;
+import ognl.OgnlRuntime;
+import ognl.PropertyAccessor;
 
 /**
  * @author Clinton Begin
@@ -50,16 +53,22 @@ public class DynamicContext {
     } else {
       bindings = new ContextMap(null, false);
     }
-    
-    
-    
-    // TODO lixin 此处应该可以注入上下文信息
-//     bindings.put("_db", "fw");
-//     bindings.put("_tablePrefix", "fw_");
-//     bindings.put("id", "1");
-    
     bindings.put(PARAMETER_OBJECT_KEY, parameterObject);
     bindings.put(DATABASE_ID_KEY, configuration.getDatabaseId());
+    try {
+    	// TODO lixin  2019-11-23 此处使用ThreadLocal
+    	// 尝试下去加载,如果都没有依赖,就跳过
+		Class.forName("help.lixin.framework.mybatis.integration.context.VarContext");
+		Map<String,String> vars = VarContext.vars();
+		if(null != vars && !vars.isEmpty()){
+			Iterator<Entry<String, String>> it = vars.entrySet().iterator();
+			while(it.hasNext()){
+				Entry<String, String> entry = it.next();
+				bindings.put(entry.getKey(), entry.getValue());
+			}
+		}
+	} catch (ClassNotFoundException ignore) {
+	}
   }
 
   public Map<String, Object> getBindings() {
