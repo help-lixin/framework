@@ -19,10 +19,14 @@ public class Application {
 		// language.save(null);
 		
 		ILanguageService language = ctx.getBean(LanguageServiceMyBatis.class);
-		
 		for(int i=0;i<100;i++){
-			List<Map> result = language.queryAll();
-			System.out.println("====================" + result);
+			Thread t = new Thread(){
+				public void run() {
+					List<Map> result = language.queryAll();
+					System.out.println("====================" + result);
+				}
+			};
+			t.start();
 		}
 	}
 }
