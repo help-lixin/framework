@@ -48,11 +48,25 @@
 			<artifactId>transaction-start</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
+		<!--  给个案例注入动态数据源名称 -->
+		<dependency>
+			<groupId>help.lixin.framework.dynamic.datasource</groupId>
+			<artifactId>dynamic-datasource-test</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>help.lixin.framework.mybatis.integration</groupId>
+			<artifactId>mybatis-integration</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>			
+			
+			
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 			<version>1.5.2.RELEASE</version>
 		</dependency>
+		
 	</dependencies>
 </project>
