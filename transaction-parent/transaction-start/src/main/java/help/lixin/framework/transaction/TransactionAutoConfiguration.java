@@ -1,6 +1,5 @@
 package help.lixin.framework.transaction;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
