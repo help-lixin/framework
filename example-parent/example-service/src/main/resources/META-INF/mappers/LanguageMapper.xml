@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="help.lixin.framework.test.mapper.LanguageMapper">
+	<select id="query"  resultType="map">
+		SELECT * FROM ${_db}.${_tablePrefix}language 
+	</select>
+	
+	<insert id="save" parameterType="help.lixin.framework.test.model.Language">
+		INSERT INTO ${_db}.${_tablePrefix}language(id,name,code) VALUES(#{id},#{name},#{code})
+	</insert>
+</mapper>
