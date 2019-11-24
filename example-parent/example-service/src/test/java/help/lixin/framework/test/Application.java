@@ -2,6 +2,7 @@ package help.lixin.framework.test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +23,11 @@ public class Application {
 		for(int i=0;i<100;i++){
 			Thread t = new Thread(){
 				public void run() {
+					try {
+						TimeUnit.SECONDS.sleep(8);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 					List<Map> result = language.queryAll();
 					System.out.println("====================" + result);
 				}
