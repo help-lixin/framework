@@ -4,8 +4,6 @@
 /Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/DataSourceMediator.java
 /Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/service/DataSourceMetaMediator.java
 /Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/service/DataSourceParams.java
-/Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/service/impl/RemoteDataSourceMetaService.java
-/Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/service/impl/LocalDataSourceMetaService.java
 /Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/VirtualDataSource.java
 /Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/service/IDataSourceMetaService.java
 /Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-service/src/main/java/help/lixin/framework/dynamic/datasource/service/DataSourceType.java

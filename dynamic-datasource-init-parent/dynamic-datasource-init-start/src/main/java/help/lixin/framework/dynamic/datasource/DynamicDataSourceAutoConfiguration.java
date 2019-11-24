@@ -1,10 +1,11 @@
 package help.lixin.framework.dynamic.datasource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -16,31 +17,21 @@ import help.lixin.framework.dynamic.datasource.filter.DefaultGetDataSourceServic
 import help.lixin.framework.dynamic.datasource.filter.GetDataSourceService;
 import help.lixin.framework.dynamic.datasource.service.DataSourceMetaServiceChain;
 import help.lixin.framework.dynamic.datasource.service.IDataSourceMetaService;
-import help.lixin.framework.dynamic.datasource.service.impl.LocalDataSourceMetaService;
-import help.lixin.framework.dynamic.datasource.service.impl.RemoteDataSourceMetaService;
 
 @Configuration
 @ConditionalOnBean(value = { Config.class, DataSourceCallback.class })
 public class DynamicDataSourceAutoConfiguration {
+	private static final Logger logger = LoggerFactory.getLogger(DynamicDataSourceAutoConfiguration.class);
+
 	/**
-	 * 元数据服务
+	 * 元数据服务(留给业务自己去实现,具体获取数据源信息)
 	 * 
 	 * @return
 	 */
 	@Bean
-	public List<IDataSourceMetaService> metaServices(Config config) {
-		List<IDataSourceMetaService> metaList = new ArrayList<IDataSourceMetaService>();
-		// 本地加载元数据
-		LocalDataSourceMetaService localDataSourceMetaService = new LocalDataSourceMetaService();
-		localDataSourceMetaService.setConfig(config);
-
-		// 远程加载元数据
-		RemoteDataSourceMetaService remoteDataSourceMetaService = new RemoteDataSourceMetaService();
-		remoteDataSourceMetaService.setConfig(config);
-
-		metaList.add(remoteDataSourceMetaService);
-		metaList.add(localDataSourceMetaService);
-		return metaList;
+	public DataSourceMetaServiceFactoryBean metaServices() {
+		DataSourceMetaServiceFactoryBean dataSourceMetaServiceFactoryBean = new DataSourceMetaServiceFactoryBean();
+		return dataSourceMetaServiceFactoryBean;
 	}
 
 	/**
@@ -50,6 +41,9 @@ public class DynamicDataSourceAutoConfiguration {
 	 */
 	@Bean
 	public IDataSourceMetaService dataSourceMetaService(List<IDataSourceMetaService> metaServices) {
+		if (null == metaServices) {
+			logger.error("用户必须自己实现[IDataSourceMetaService],并注入到Spring中");
+		}
 		IDataSourceMetaService dataSourceMetaService = new DataSourceMetaServiceChain();
 		dataSourceMetaService.setMetaChain(metaServices);
 		return dataSourceMetaService;

@@ -16,6 +16,21 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.24.1-GA</version>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>ognl</groupId>
+			<artifactId>ognl</artifactId>
+			<version>3.2.10</version>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
+	
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.3.7.RELEASE</version>
@@ -24,13 +39,11 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
 			<version>1.1.20</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.48</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -60,8 +73,13 @@
 			<artifactId>mybatis-integration</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>			
-			
-			
+		<dependency>
+			<groupId>help.lixin.framework.mybatis.integration</groupId>
+			<artifactId>mybatis-integration-context</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+	
+				
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
