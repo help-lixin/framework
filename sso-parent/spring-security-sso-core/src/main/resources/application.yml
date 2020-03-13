@@ -1,0 +1,12 @@
+jwt:
+  secret: secret
+  expiration: 7200000
+  token: Authorization
+
+spring:
+  auth:
+    loginPage: /login.html
+    loginProcessingUrl: /login
+    permitUrls: [ /login.html , /login ]
+      
+       
