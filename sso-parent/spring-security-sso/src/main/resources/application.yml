@@ -33,8 +33,3 @@ spring:
 ## mybatis配置      
 mybatis:
   mapperLocations: classpath:mappers/*.xml
-     
-jwt:
-  secret: secret
-  expiration: 7200000
-  token: Authorization
