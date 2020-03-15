@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -42,7 +41,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import help.lixin.framework.auth.LoginAuthenticationEntryPoint;
 import help.lixin.framework.auth.access.UrlAccessDecisionManager;
-import help.lixin.framework.auth.constant.Constants;
+import help.lixin.framework.auth.filter.Constants;
 import help.lixin.framework.auth.filter.OverrideFilterSecurityInterceptor;
 import help.lixin.framework.auth.filter.TokenAuthenticationFilter;
 import help.lixin.framework.auth.filter.UserFormLoginFilter;
@@ -52,8 +51,6 @@ import help.lixin.framework.auth.service.IResourceService;
 import help.lixin.framework.auth.service.IUserDetailService;
 import help.lixin.framework.auth.service.impl.CacheResourceService;
 import help.lixin.framework.auth.service.impl.CacheUserDetailService;
-import help.lixin.framework.auth.service.impl.LocalResourceService;
-import help.lixin.framework.auth.service.impl.LocalUserDetailService;
 import help.lixin.framework.auth.service.impl.UserDetailServiceImpl;
 import help.lixin.framework.auth.user.UserDetail;
 import help.lixin.framework.auth.voter.UrlVoter;
@@ -79,28 +76,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	@ConditionalOnProperty(prefix = "spring.auth", name = "impl", havingValue = "local")
-	public IResourceService localResourceService() {
-		return new LocalResourceService();
-	}
-
-	// TODO
-	@Bean
-	@ConditionalOnProperty(prefix = "spring.auth", name = "impl", havingValue = "remote")
-	public IResourceService remoteResourceService() {
-		return null;
+	public IUserDetailService cacheUserDetailService() {
+		CacheUserDetailService cacheUserDetailService = new CacheUserDetailService();
+		cacheUserDetailService.setUserCacheExpireMinutes(securityProperties.getUserCacheExpireMinutes());
+		IUserDetailService userDetailServiceImpl = getApplicationContext().getBean("userDetailService",
+				IUserDetailService.class);
+		cacheUserDetailService.setDelegatorUserDetailService(userDetailServiceImpl);
+		return cacheUserDetailService;
 	}
 
 	@Bean
 	public IResourceService cacheResourceService() {
 		CacheResourceService cacheResourceService = new CacheResourceService();
 		cacheResourceService.setResourceCacheExpireMinutes(securityProperties.getResourceCacheExpireMinutes());
-		IResourceService delegatorResourceService = null;
-		if ("local".equals(securityProperties.getImpl())) {
-			delegatorResourceService = getApplicationContext().getBean("localResourceService", IResourceService.class);
-		} else {
-			delegatorResourceService = getApplicationContext().getBean("remoteResourceService", IResourceService.class);
-		}
+		IResourceService delegatorResourceService = getApplicationContext().getBean("resourceService", IResourceService.class);
 		cacheResourceService.setDelegatorResourceService(delegatorResourceService);
 		return cacheResourceService;
 	}
@@ -226,36 +215,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			}
 		});
 		return userLoginFilter;
-	}
-
-	@Bean
-	@ConditionalOnProperty(prefix = "spring.auth", name = "impl", havingValue = "local")
-	public IUserDetailService localUserDetailService() {
-		IUserDetailService localUserDetailService = new LocalUserDetailService();
-		return localUserDetailService;
-	}
-
-	// TODO
-	@Bean
-	@ConditionalOnProperty(prefix = "spring.auth", name = "impl", havingValue = "remote")
-	public IUserDetailService remoteUserDetailService() {
-
-		return null;
-	}
-
-	@Bean
-	public IUserDetailService cacheUserDetailService() {
-		CacheUserDetailService cacheUserDetailService = new CacheUserDetailService();
-		cacheUserDetailService.setUserCacheExpireMinutes(securityProperties.getUserCacheExpireMinutes());
-		IUserDetailService userDetailServiceImpl = null;
-		if ("local".equals(securityProperties.getImpl())) {
-			userDetailServiceImpl = getApplicationContext().getBean("localUserDetailService", IUserDetailService.class);
-		} else {
-			userDetailServiceImpl = getApplicationContext().getBean("remoteUserDetailService",
-					IUserDetailService.class);
-		}
-		cacheUserDetailService.setDelegatorUserDetailService(userDetailServiceImpl);
-		return cacheUserDetailService;
 	}
 
 	/**

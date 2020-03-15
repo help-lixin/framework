@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import help.lixin.framework.auth.constant.Constants;
 import help.lixin.framework.auth.context.LoginModeContext;
+import help.lixin.framework.auth.filter.Constants;
 import help.lixin.framework.auth.service.IUserDetailService;
 
 /**

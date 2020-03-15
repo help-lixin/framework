@@ -1,4 +1,4 @@
-package help.lixin.framework.auth.constant;
+package help.lixin.framework.auth.filter;
 
 public class Constants {
 	// 身份标识

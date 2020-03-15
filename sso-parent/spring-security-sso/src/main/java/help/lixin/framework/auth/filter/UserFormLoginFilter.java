@@ -15,7 +15,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import help.lixin.framework.auth.constant.LoginMode;
 import help.lixin.framework.auth.context.LoginModeContext;
 import help.lixin.framework.auth.user.UserDetail;
 
