@@ -28,7 +28,7 @@ spring:
     resourceCacheExpireMinutes: 5
     loginPage: /login.html
     loginProcessingUrl: /login
-    permitUrls: [ /login.html , /login ]
+    permitUrls: [ /login.html , /login , /test ]
 
 ## mybatis配置      
 mybatis:

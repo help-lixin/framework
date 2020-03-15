@@ -6,6 +6,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
+	@GetMapping("/test")
+//	@PreAuthorize("hasAuthority('user')")
+//	@PreAuthorize("hasRole('user')")
+	public String test() {
+		return "hello test !";
+	}
+	
 	@GetMapping("/hello")
 //	@PreAuthorize("hasAuthority('user')")
 //	@PreAuthorize("hasRole('user')")
