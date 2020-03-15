@@ -6,43 +6,94 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class User implements UserDetails {
+public class UserDetail implements UserDetails {
 	private static final long serialVersionUID = -1972260612305175967L;
+	// 用户基本信息ID
+	private Long userInfoId;
+	// 租户ID
+	private Long tenantId;
 	private String username;
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities = new ArrayList<>(0);
+	private boolean isAccountNonLocked;
+	// 登录模式
+	private String mode;
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public String getMode() {
+		return mode;
+	}
 
 	public static Builder newBuilder() {
 		return new Builder();
 	}
 
 	public static class Builder {
-		private User user = new User();
+		private UserDetail userDetail = new UserDetail();
+
+		public Builder userInfoId(Long userInfoId) {
+			userDetail.userInfoId = userInfoId;
+			return this;
+		}
+
+		public Builder mode(String mode) {
+			userDetail.mode = mode;
+			return this;
+		}
+
+		public Builder tenantId(Long tenantId) {
+			userDetail.tenantId = tenantId;
+			return this;
+		}
+
+		public Builder isAccountNonLocked(boolean isAccountNonLocked) {
+			userDetail.isAccountNonLocked = isAccountNonLocked;
+			return this;
+		}
 
 		public Builder username(String username) {
-			user.username = username;
+			userDetail.username = username;
 			return this;
 		}
 
 		public Builder password(String password) {
-			user.password = password;
+			userDetail.password = password;
 			return this;
 		}
 
 		public Builder authorities(Collection<? extends GrantedAuthority> authorities) {
 			if (null != authorities) {
-				user.authorities = authorities;
+				userDetail.authorities = authorities;
 			}
 			return this;
 		}
 
-		public User build() {
-			return user;
+		public UserDetail build() {
+			return userDetail;
 		}
 	}
 
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
+	}
+
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
+	}
+
+	public Long getTenantId() {
+		return tenantId;
+	}
+
+	public void setUserInfoId(Long userInfoId) {
+		this.userInfoId = userInfoId;
+	}
+
+	public Long getUserInfoId() {
+		return userInfoId;
 	}
 
 	@Override
@@ -73,9 +124,13 @@ public class User implements UserDetails {
 		return true;
 	}
 
+	public void setAccountNonLocked(boolean isAccountNonLocked) {
+		this.isAccountNonLocked = isAccountNonLocked;
+	}
+
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+		return isAccountNonLocked;
 	}
 
 	@Override

@@ -1,34 +1,46 @@
 package help.lixin.framework.auth.service.impl;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import help.lixin.framework.auth.user.User;
+import help.lixin.framework.auth.constant.Constants;
+import help.lixin.framework.auth.context.LoginModeContext;
+import help.lixin.framework.auth.service.IUserDetailService;
 
+/**
+ * 根据用户名加载用户详细信息
+ * 
+ * @author lixin
+ */
 public class UserDetailServiceImpl implements UserDetailsService {
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = null;
-		Set<GrantedAuthority> authorities = new HashSet<>();
-		if (username.equals("admin")) {
-//			authorities.add(new SimpleGrantedAuthority("ROLE_admin"));
-			authorities.add(new SimpleGrantedAuthority("admin"));
-			user = User.newBuilder().username(username).password("123").authorities(authorities).build();
-		} else if (username.equals("sang")) {
-//			authorities.add(new SimpleGrantedAuthority("ROLE_user"));
-			authorities.add(new SimpleGrantedAuthority("user"));
-			user = User.newBuilder().username(username).password("456").authorities(authorities).build();
-		}
-		if (null == user) {
-			throw new UsernameNotFoundException("No User found with UserName :" + username);
-		}
-		return user;
+	private Logger logger = LoggerFactory.getLogger(getClass());
+
+	private IUserDetailService userDetailService;
+
+	public UserDetailServiceImpl(IUserDetailService userDetailService) {
+		this.userDetailService = userDetailService;
 	}
 
+	public void setUserDetailService(IUserDetailService userDetailService) {
+		this.userDetailService = userDetailService;
+	}
+
+	public IUserDetailService getUserDetailService() {
+		return userDetailService;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Map<String, Object> params = new HashMap<>();
+		params.put(Constants.LOGIN_MODE_KEY, LoginModeContext.getMode());
+		params.put(Constants.IDENTIFIER, username);
+		logger.info("load context loginMode:[{}] to params:[{}]", LoginModeContext.getMode(), params);
+		return userDetailService.loadUser(params);
+	}
 }

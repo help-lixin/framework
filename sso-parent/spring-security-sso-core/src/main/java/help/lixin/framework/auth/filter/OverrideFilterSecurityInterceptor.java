@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
@@ -26,8 +25,7 @@ public class OverrideFilterSecurityInterceptor extends AbstractSecurityIntercept
 	// 标记自定义的url拦截器已经加载
 	private static final String FILTER_APPLIED = "__spring_security_filterSecurityInterceptor_filterApplied_dynamically";
 
-	@Autowired
-	private FilterInvocationSecurityMetadataSource securityMetadataSource;
+	private FilterInvocationSecurityMetadataSource urlAttributeMetadataSource;
 	
 	private boolean observeOncePerRequest = true;
 
@@ -52,15 +50,15 @@ public class OverrideFilterSecurityInterceptor extends AbstractSecurityIntercept
 	}
 
 	public FilterInvocationSecurityMetadataSource getSecurityMetadataSource() {
-		return this.securityMetadataSource;
+		return this.urlAttributeMetadataSource;
 	}
 
 	public SecurityMetadataSource obtainSecurityMetadataSource() {
-		return this.securityMetadataSource;
+		return this.urlAttributeMetadataSource;
 	}
 
 	public void setSecurityMetadataSource(FilterInvocationSecurityMetadataSource newSource) {
-		this.securityMetadataSource = newSource;
+		this.urlAttributeMetadataSource = newSource;
 	}
 
 	@Override

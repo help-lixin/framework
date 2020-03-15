@@ -3,19 +3,20 @@ package help.lixin.framework.auth.config;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.Filter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.AccessDecisionManager;
@@ -28,7 +29,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,12 +43,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import help.lixin.framework.auth.LoginAuthenticationEntryPoint;
 import help.lixin.framework.auth.access.UrlAccessDecisionManager;
+import help.lixin.framework.auth.constant.Constants;
 import help.lixin.framework.auth.filter.OverrideFilterSecurityInterceptor;
 import help.lixin.framework.auth.filter.TokenAuthenticationFilter;
-import help.lixin.framework.auth.filter.UserLoginFilter;
-import help.lixin.framework.auth.metadatasource.UrlSecurityMetadataSource;
+import help.lixin.framework.auth.filter.UserFormLoginFilter;
+import help.lixin.framework.auth.metadatasource.UrlAttributeMetadataSource;
 import help.lixin.framework.auth.properties.SecurityProperties;
+import help.lixin.framework.auth.service.IResourceService;
+import help.lixin.framework.auth.service.IUserDetailService;
+import help.lixin.framework.auth.service.impl.CacheUserDetailService;
+import help.lixin.framework.auth.service.impl.LocalResourceService;
+import help.lixin.framework.auth.service.impl.LocalUserDetailService;
 import help.lixin.framework.auth.service.impl.UserDetailServiceImpl;
+import help.lixin.framework.auth.user.UserDetail;
 import help.lixin.framework.auth.voter.UrlVoter;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -60,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private SecurityProperties securityProperties;
-	
+
 	@Bean
 	public SecurityProperties securityProperties() {
 		return new SecurityProperties();
@@ -70,15 +77,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
 	}
-	
+
+	@Autowired
+	private IResourceService resourceService;
+
+	@Bean
+	@ConditionalOnProperty(prefix = "spring.auth", name = "impl", havingValue = "local")
+	public IResourceService resourceService() {
+		return new LocalResourceService();
+	}
+
+	@Autowired
+	private FilterInvocationSecurityMetadataSource urlAttributeMetadataSource;
+
 	/**
 	 * 加载用户所有资源
 	 * 
 	 * @return
 	 */
 	@Bean
-	public FilterInvocationSecurityMetadataSource securityMetadataSource() {
-		return new UrlSecurityMetadataSource();
+	public FilterInvocationSecurityMetadataSource urlAttributeMetadataSource() {
+		UrlAttributeMetadataSource urlAttributeMetadataSource = new UrlAttributeMetadataSource();
+		urlAttributeMetadataSource.setResourceService(resourceService);
+		return urlAttributeMetadataSource;
 	}
 
 	/**
@@ -86,6 +107,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * 
 	 * @return
 	 */
+	@Autowired
+	@Qualifier("loginAuthenticationEntryPoint")
+	private AuthenticationEntryPoint loginAuthenticationEntryPoint;
+
 	@Bean
 	public AuthenticationEntryPoint loginAuthenticationEntryPoint() {
 		return new LoginAuthenticationEntryPoint(securityProperties.getLoginPage());
@@ -100,6 +125,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public TokenAuthenticationFilter tokenAuthenticationFilter() {
 		TokenAuthenticationFilter tokenAuthenticationFilter = new TokenAuthenticationFilter();
+		tokenAuthenticationFilter.setAuthenticationEntryPoint(loginAuthenticationEntryPoint);
 		return tokenAuthenticationFilter;
 	}
 
@@ -110,17 +136,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * @param accessDecisionVoters
 	 * @return
 	 */
+
 	@Bean
 	public OverrideFilterSecurityInterceptor overrideFilterSecurityInterceptor() {
 		OverrideFilterSecurityInterceptor interceptor = new OverrideFilterSecurityInterceptor();
 		// 设置认证决策管理器
-		interceptor.setAccessDecisionManager(urlAccessDecisionManager());
+		interceptor.setAccessDecisionManager(urlAccessDecisionManager);
+		interceptor.setSecurityMetadataSource(urlAttributeMetadataSource);
 		return interceptor;
 	}
+
+	@Autowired
+	private AccessDecisionManager urlAccessDecisionManager;
 
 	@Bean
 	public AccessDecisionManager urlAccessDecisionManager() {
 		UrlAccessDecisionManager accessDecisionManager = new UrlAccessDecisionManager();
+		// TODO
 		List<AccessDecisionVoter<? extends Object>> accessDecisionVoters = new ArrayList<>();
 		accessDecisionVoters.add(new UrlVoter());
 		accessDecisionManager.setDecisionVoters(accessDecisionVoters);
@@ -133,22 +165,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * @return
 	 * @throws Exception
 	 */
+	@Autowired
+	@Qualifier("userLoginFilter")
+	private UserFormLoginFilter userLoginFilter;
+
 	@Bean
-	public Filter userLoginFilter() throws Exception {
-		UserLoginFilter userLoginFilter = new UserLoginFilter(securityProperties.getLoginProcessingUrl(),
+	public UserFormLoginFilter userLoginFilter() throws Exception {
+		UserFormLoginFilter userLoginFilter = new UserFormLoginFilter(securityProperties.getLoginProcessingUrl(),
 				authenticationManager());
 		userLoginFilter.setAuthenticationSuccessHandler(new AuthenticationSuccessHandler() {
 			@Override
 			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 					Authentication authResult) throws IOException, ServletException {
-				Collection<? extends GrantedAuthority> authorities = authResult.getAuthorities();
-				StringBuffer as = new StringBuffer();
-				for (GrantedAuthority authority : authorities) {
-					as.append(authority.getAuthority()).append(",");
-				}
+				UserDetail userDetail = (UserDetail) authResult.getPrincipal();
 				String jwt = Jwts.builder() //
-						.claim("authorities", as)// 配置用户角色
-						.setSubject(authResult.getName()) // 主体信息
+						.claim(Constants.TENANT_ID_KEY, userDetail.getTenantId()) // 租户ID
+						.claim(Constants.USER_INFO_ID_KEY, userDetail.getUserInfoId()) // 用户ID
+						.setSubject(authResult.getName()) // 主体信息(账户名称)
 						.setExpiration(new Date(System.currentTimeMillis() + 10 * 60 * 1000)) // 过期时间
 						.signWith(SignatureAlgorithm.HS512, "123456") // 签名处理
 						.compact();
@@ -177,6 +210,37 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return userLoginFilter;
 	}
 
+	@Bean
+	@ConditionalOnProperty(prefix = "spring.auth", name = "impl", havingValue = "local")
+	public IUserDetailService localUserDetailService() {
+		IUserDetailService localUserDetailService = new LocalUserDetailService();
+		return localUserDetailService;
+	}
+
+	@Bean
+	@ConditionalOnProperty(prefix = "spring.auth", name = "impl", havingValue = "remote")
+	public IUserDetailService remoteUserDetailService() {
+		IUserDetailService localUserDetailService = new LocalUserDetailService();
+		return localUserDetailService;
+	}
+
+	@Autowired
+	@Qualifier("cacheUserDetailService")
+	private IUserDetailService cacheUserDetailService;
+
+	@Bean
+	public IUserDetailService cacheUserDetailService(ApplicationContext ctx) {
+		CacheUserDetailService cacheUserDetailService = new CacheUserDetailService();
+		IUserDetailService userDetailServiceImpl = null;
+		if ("local".equals(securityProperties.getImpl())) {
+			userDetailServiceImpl = ctx.getBean("localUserDetailService", IUserDetailService.class);
+		} else {
+			userDetailServiceImpl = ctx.getBean("remoteUserDetailService", IUserDetailService.class);
+		}
+		cacheUserDetailService.setUserDetailService(userDetailServiceImpl);
+		return cacheUserDetailService;
+	}
+
 	/**
 	 * 加载用户信息
 	 * 
@@ -184,7 +248,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Bean
 	public UserDetailsService userService() {
-		return new UserDetailServiceImpl();
+		return new UserDetailServiceImpl(cacheUserDetailService);
 	}
 
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -200,7 +264,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http. // 异常处理配置
 				exceptionHandling()
 				// 自定义:authenticationEntryPoint
-				.authenticationEntryPoint(loginAuthenticationEntryPoint()) //
+				.authenticationEntryPoint(loginAuthenticationEntryPoint) //
 				.and()
 				// 表单配置
 				.formLogin() //
@@ -222,7 +286,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// 过滤器配置
 				.addFilterAfter(overrideFilterSecurityInterceptor(), FilterSecurityInterceptor.class) // 请求URL拦截器
 				// 登录处理
-				.addFilterBefore(userLoginFilter(), UsernamePasswordAuthenticationFilter.class) //
+				.addFilterBefore(userLoginFilter, UsernamePasswordAuthenticationFilter.class) //
 				// 鉴权处理
 				.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class) //
 				.sessionManagement().disable() //

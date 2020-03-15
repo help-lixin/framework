@@ -26,7 +26,10 @@ public class UrlVoter implements AccessDecisionVoter<Object> {
 		return FilterInvocation.class == clazz;
 	}
 
-	@SuppressWarnings("unused")
+	/**
+	 * 
+	 * @param attributes 根据用户,获取所拥有的URL信息.
+	 */
 	@Override
 	public int vote(Authentication authentication, Object object, Collection<ConfigAttribute> attributes) {
 		if (authentication == null) {
@@ -40,8 +43,7 @@ public class UrlVoter implements AccessDecisionVoter<Object> {
 		}
 		FilterInvocation filterInvocation = (FilterInvocation) object;
 		String requestUrl = filterInvocation.getRequest().getRequestURI();
-		// 获取认证后用户身上的资源列表
-		Collection<? extends GrantedAuthority> authorities = extractAuthorities(authentication);
+
 		for (ConfigAttribute attribute : attributes) {
 			if (this.supports(object.getClass())) {
 				String url = attribute.getAttribute();

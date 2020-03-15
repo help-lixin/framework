@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="help.lixin.framework.auth.mapper.UserMapper">
+	
+	<resultMap type="help.lixin.framework.auth.model.User" id="resultUser">
+		<id column="user_id" property="userId"/>
+		<result column="identifier" property="identifier"/>
+		<result column="credential" property="credential"/>
+		<result column="status" property="status"/>
+		<result column="type" property="type"/>
+		<result column="account_tenant_id" property="tenantId"/>
+		
+		<association property="userInfo" javaType="help.lixin.framework.auth.model.UserInfo">
+			<id column="user_info_id" property="userInfoId"/>
+			<result column="nickname" property="nickname"/>
+			<result column="icon" property="icon"/>
+			<result column="register_time" property="registerTime"/>
+			<result column="tenant_id" property="tenantId"/>
+		</association>		
+	</resultMap>
+			
+	<select id="loadUser"  resultMap="resultUser">
+		SELECT
+		    u.user_id,
+		    u.identifier,
+		    u.credential,
+		    u.status,
+		    u.type,
+		    u.tenant_id  account_tenant_id,
+		    i.user_info_id,
+		    i.nickname,
+		    i.icon,
+		    i.register_time,
+		    i.tenant_id
+		FROM t_user u INNER JOIN t_user_info i
+		ON u.user_info_id = i.user_info_id 
+		WHERE u.type = #{arg0}  AND u.identifier = #{arg1} 
+	</select>
+</mapper>
