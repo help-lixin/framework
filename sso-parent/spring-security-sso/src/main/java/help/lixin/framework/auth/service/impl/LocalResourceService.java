@@ -29,9 +29,8 @@ public class LocalResourceService implements IResourceService {
 		Long userInfoId = (Long) params.get(Constants.USER_INFO_ID_KEY);
 		Long tenantId = (Long) params.get(Constants.TENANT_ID_KEY);
 		
-		
 		resourecs.add("/admin");
-		resourecs.add("/user");
+		resourecs.add("/hello");
 		
 		return resourecs;
 	}

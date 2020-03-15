@@ -24,6 +24,8 @@ spring:
   ## 认证相关    
   auth:
     impl: local
+    userCacheExpireMinutes: 5
+    resourceCacheExpireMinutes: 5
     loginPage: /login.html
     loginProcessingUrl: /login
     permitUrls: [ /login.html , /login ]

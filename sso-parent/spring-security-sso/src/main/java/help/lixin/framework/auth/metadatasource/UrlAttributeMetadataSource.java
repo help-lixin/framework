@@ -15,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 
-import help.lixin.framework.auth.constant.Constants;
 import help.lixin.framework.auth.service.IResourceService;
 
 public class UrlAttributeMetadataSource implements FilterInvocationSecurityMetadataSource {
@@ -36,8 +35,10 @@ public class UrlAttributeMetadataSource implements FilterInvocationSecurityMetad
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		// 获得Authentication中自定义的信息
 		Object details = authentication.getDetails();
-		if (null != details && details instanceof Map) {
+		if (supports(object.getClass()) && null != details && details instanceof Map) {
 			FilterInvocation fi = (FilterInvocation) object;
+			logger.debug("request url:[{}] params:[{}]", fi.getRequest().getRequestURI(), details);
+
 			Set<String> resources = resourceService.loadResources((Map) details);
 			if (null != resources) {
 				resources.forEach(resource -> {
