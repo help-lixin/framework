@@ -1,12 +1,8 @@
 package help.lixin.framework.auth.config;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,14 +33,12 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import help.lixin.framework.auth.LoginAuthenticationEntryPoint;
 import help.lixin.framework.auth.access.UrlAccessDecisionManager;
-import help.lixin.framework.auth.filter.Constants;
 import help.lixin.framework.auth.filter.OverrideFilterSecurityInterceptor;
 import help.lixin.framework.auth.filter.TokenAuthenticationFilter;
 import help.lixin.framework.auth.filter.UserFormLoginFilter;
+import help.lixin.framework.auth.handler.AuthenticationHandler;
 import help.lixin.framework.auth.metadatasource.UrlAttributeMetadataSource;
 import help.lixin.framework.auth.properties.SecurityProperties;
 import help.lixin.framework.auth.service.IResourceService;
@@ -52,10 +46,8 @@ import help.lixin.framework.auth.service.IUserDetailService;
 import help.lixin.framework.auth.service.impl.CacheResourceService;
 import help.lixin.framework.auth.service.impl.CacheUserDetailService;
 import help.lixin.framework.auth.service.impl.UserDetailServiceImpl;
-import help.lixin.framework.auth.user.UserDetail;
+import help.lixin.framework.auth.voter.PermitUrlsVoter;
 import help.lixin.framework.auth.voter.UrlVoter;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 @EnableConfigurationProperties(SecurityProperties.class)
 @EnableWebSecurity // 这个注解必须加，开启Security
@@ -65,16 +57,44 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private SecurityProperties securityProperties;
 
+	@Autowired
+	private FilterInvocationSecurityMetadataSource urlAttributeMetadataSource;
+
+	@Autowired
+	@Qualifier("loginAuthenticationEntryPoint")
+	private AuthenticationEntryPoint loginAuthenticationEntryPoint;
+
+	@Autowired
+	private AccessDecisionManager urlAccessDecisionManager;
+
+	@Autowired
+	@Qualifier("authenticationHandler")
+	private AuthenticationHandler authenticationHandler;
+
+	@Autowired
+	@Qualifier("userLoginFilter")
+	private UserFormLoginFilter userLoginFilter;
+
 	@Bean
 	public SecurityProperties securityProperties() {
 		return new SecurityProperties();
 	}
 
+	/**
+	 * 密码处理
+	 * 
+	 * @return
+	 */
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
 	}
 
+	/**
+	 * 用户录时,加载用户信息的具体实现
+	 * 
+	 * @return
+	 */
 	@Bean
 	public IUserDetailService cacheUserDetailService() {
 		CacheUserDetailService cacheUserDetailService = new CacheUserDetailService();
@@ -85,20 +105,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return cacheUserDetailService;
 	}
 
+	/**
+	 * 资源加载具体实现
+	 * 
+	 * @return
+	 */
 	@Bean
 	public IResourceService cacheResourceService() {
 		CacheResourceService cacheResourceService = new CacheResourceService();
 		cacheResourceService.setResourceCacheExpireMinutes(securityProperties.getResourceCacheExpireMinutes());
-		IResourceService delegatorResourceService = getApplicationContext().getBean("resourceService", IResourceService.class);
+		IResourceService delegatorResourceService = getApplicationContext().getBean("resourceService",
+				IResourceService.class);
 		cacheResourceService.setDelegatorResourceService(delegatorResourceService);
 		return cacheResourceService;
 	}
 
-	@Autowired
-	private FilterInvocationSecurityMetadataSource urlAttributeMetadataSource;
-
 	/**
-	 * 加载用户所有资源
+	 * 加载用户所有资源(元数据加载器)
 	 * 
 	 * @return
 	 */
@@ -110,14 +133,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	/**
-	 * 登录切入点
+	 * 对用户身份进行鉴权时,发现有错误时:进行的切入点(比如:发起重定向处理)
 	 * 
 	 * @return
 	 */
-	@Autowired
-	@Qualifier("loginAuthenticationEntryPoint")
-	private AuthenticationEntryPoint loginAuthenticationEntryPoint;
-
 	@Bean
 	public AuthenticationEntryPoint loginAuthenticationEntryPoint() {
 		return new LoginAuthenticationEntryPoint(securityProperties.getLoginPage());
@@ -143,7 +162,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * @param accessDecisionVoters
 	 * @return
 	 */
-
 	@Bean
 	public OverrideFilterSecurityInterceptor overrideFilterSecurityInterceptor() {
 		OverrideFilterSecurityInterceptor interceptor = new OverrideFilterSecurityInterceptor();
@@ -153,14 +171,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return interceptor;
 	}
 
-	@Autowired
-	private AccessDecisionManager urlAccessDecisionManager;
+	/**
+	 * 匿名请求放过处理.
+	 * @return
+	 */
+	@Bean
+	public PermitUrlsVoter permitUrlsVoter() {
+		PermitUrlsVoter permitUrlsVoter = new PermitUrlsVoter();
+		permitUrlsVoter.setPermitUrls(securityProperties.getPermitUrls());
+		return permitUrlsVoter;
+	}
 
+	/**
+	 * 权限控制管理.通过AccessDecisionVoter进行投票处理
+	 * 自定义:UrlVoter(通过AntPatchMatch进行URL比较).当资源拥有者的资源(URL)和请求的URL相同时,则可以调用.
+	 * 
+	 * @return
+	 */
 	@Bean
 	public AccessDecisionManager urlAccessDecisionManager() {
 		UrlAccessDecisionManager accessDecisionManager = new UrlAccessDecisionManager();
 		// TODO
 		List<AccessDecisionVoter<? extends Object>> accessDecisionVoters = new ArrayList<>();
+		accessDecisionVoters.add(permitUrlsVoter());
 		accessDecisionVoters.add(new UrlVoter());
 		accessDecisionManager.setDecisionVoters(accessDecisionVoters);
 		return accessDecisionManager;
@@ -172,10 +205,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * @return
 	 * @throws Exception
 	 */
-	@Autowired
-	@Qualifier("userLoginFilter")
-	private UserFormLoginFilter userLoginFilter;
-
 	@Bean
 	public UserFormLoginFilter userLoginFilter() throws Exception {
 		UserFormLoginFilter userLoginFilter = new UserFormLoginFilter(securityProperties.getLoginProcessingUrl(),
@@ -183,35 +212,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		userLoginFilter.setAuthenticationSuccessHandler(new AuthenticationSuccessHandler() {
 			@Override
 			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-					Authentication authResult) throws IOException, ServletException {
-				UserDetail userDetail = (UserDetail) authResult.getPrincipal();
-				String jwt = Jwts.builder() //
-						.claim(Constants.TENANT_ID_KEY, userDetail.getTenantId()) // 租户ID
-						.claim(Constants.USER_INFO_ID_KEY, userDetail.getUserInfoId()) // 用户ID
-						.setSubject(authResult.getName()) // 主体信息(账户名称)
-						.setExpiration(new Date(System.currentTimeMillis() + 10 * 60 * 1000)) // 过期时间
-						.signWith(SignatureAlgorithm.HS512, "123456") // 签名处理
-						.compact();
-				response.setContentType("application/json;charset=utf-8");
-				Map<String, Object> datas = new LinkedHashMap<String, Object>(3);
-				datas.put("code", 200);
-				datas.put("msg", "登录成功");
-				datas.put("token", jwt);
-				PrintWriter out = response.getWriter();
-				out.write(new ObjectMapper().writeValueAsString(datas));
-				out.flush();
-				out.close();
+					Authentication authentication) throws IOException, ServletException {
+				if (null != authenticationHandler) {
+					// 回调给具体业务处理
+					authenticationHandler.success(request, response, authentication);
+				}
 			}
 		});
 		userLoginFilter.setAuthenticationFailureHandler(new AuthenticationFailureHandler() {
 			@Override
 			public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 					AuthenticationException exception) throws IOException, ServletException {
-				response.setContentType("application/json;charset=utf-8");
-				PrintWriter out = response.getWriter();
-				out.write("登录失败!");
-				out.flush();
-				out.close();
+				if (null != authenticationHandler) {
+					authenticationHandler.failure(request, response, exception);
+				}
 			}
 		});
 		return userLoginFilter;

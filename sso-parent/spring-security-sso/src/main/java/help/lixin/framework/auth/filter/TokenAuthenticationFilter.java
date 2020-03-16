@@ -85,7 +85,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 				token.setDetails(details);
 				SecurityContextHolder.getContext().setAuthentication(token);
 			} catch (ExpiredJwtException | SignatureException exception) {
-				// JWT过期时进行统一的跳转处理
+				// JWT过期或签名错误时进行统一的跳转处理
 				authenticationEntryPoint.commence(req, resp, new AccountExpiredException(exception.getMessage()));
 				return;
 			}
