@@ -23,11 +23,7 @@ public class LocalResourceService implements IResourceService {
 		if (!params.containsKey(Constants.USER_INFO_ID_KEY)) {
 			throw new IllegalArgumentException("用户ID不能为空");
 		}
-		if (!params.containsKey(Constants.TENANT_ID_KEY)) {
-			throw new IllegalArgumentException("租户ID不能为空");
-		}
 		Long userInfoId = (Long) params.get(Constants.USER_INFO_ID_KEY);
-		Long tenantId = (Long) params.get(Constants.TENANT_ID_KEY);
 		
 		resourecs.add("/admin");
 		resourecs.add("/hello");
