@@ -1,0 +1,7 @@
+swagger:
+  title: test
+  description: test
+  srviceUrl: http://www.baidu.com
+  basePackage: help.lixin
+  contact: lixin
+  version: 1.0.0
