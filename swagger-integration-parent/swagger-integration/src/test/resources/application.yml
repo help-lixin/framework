@@ -1,4 +1,5 @@
 swagger:
+  enable: false
   title: test
   description: test
   srviceUrl: http://www.baidu.com
