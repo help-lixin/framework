@@ -16,8 +16,6 @@ public class User implements Serializable {
 	private String identifier;
 	// 密码凭证(站内保存的密码,站外不做保存或保存为token)
 	private String credential;
-	// 租户ID
-	private Long tenantId;
 
 	// 用户详细信息
 	private UserInfo userInfo;
@@ -31,11 +29,6 @@ public class User implements Serializable {
 
 		public Builder userId(Long userId) {
 			user.userId = userId;
-			return this;
-		}
-
-		public Builder tenantId(Long tenantId) {
-			user.tenantId = tenantId;
 			return this;
 		}
 
@@ -130,19 +123,9 @@ public class User implements Serializable {
 		return userInfo;
 	}
 
-	public Long getTenantId() {
-		return tenantId;
-	}
-
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
-	}
-
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userInfoId=" + userInfoId + ", status=" + status + ", type=" + type
-				+ ", identifier=" + identifier + ", credential=" + credential + ", tenantId=" + tenantId + ", userInfo="
-				+ userInfo + "]";
+				+ ", identifier=" + identifier + ", credential=" + credential + ", userInfo=" + userInfo + "]";
 	}
-
 }

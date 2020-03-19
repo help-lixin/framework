@@ -10,14 +10,12 @@
 		<result column="credential" property="credential"/>
 		<result column="status" property="status"/>
 		<result column="type" property="type"/>
-		<result column="account_tenant_id" property="tenantId"/>
 		
 		<association property="userInfo" javaType="help.lixin.framework.auth.model.UserInfo">
 			<id column="user_info_id" property="userInfoId"/>
 			<result column="nickname" property="nickname"/>
 			<result column="icon" property="icon"/>
 			<result column="register_time" property="registerTime"/>
-			<result column="tenant_id" property="tenantId"/>
 		</association>		
 	</resultMap>
 			
@@ -28,12 +26,10 @@
 		    u.credential,
 		    u.status,
 		    u.type,
-		    u.tenant_id  account_tenant_id,
 		    i.user_info_id,
 		    i.nickname,
 		    i.icon,
-		    i.register_time,
-		    i.tenant_id
+		    i.register_time
 		FROM t_user u INNER JOIN t_user_info i
 		ON u.user_info_id = i.user_info_id 
 		WHERE u.type = #{arg0}  AND u.identifier = #{arg1} 

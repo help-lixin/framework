@@ -68,14 +68,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 				String username = claims.getSubject();// 获取当前登录用户名
 				// 用户信息ID
 				Long userInfoId = claims.get(Constants.USER_INFO_ID_KEY, Long.class);
-				// 租户ID
-				Long tenantId = claims.get(Constants.TENANT_ID_KEY, Long.class);
 				logger.info("userName:[{}] request access url:[{}]", username, req.getRequestURI());
-
 				// 包装用户信息和租户ID,传递到:AccessDecisionManager处理.
 				Map<String, Long> details = new HashMap<>(2);
 				details.put(Constants.USER_INFO_ID_KEY, userInfoId);
-				details.put(Constants.TENANT_ID_KEY, tenantId);
 
 				// TODO
 				// 注意:authorities不可以为Null.否则,拦截器会出现莫名情况,需要跟源码查看具体情况.

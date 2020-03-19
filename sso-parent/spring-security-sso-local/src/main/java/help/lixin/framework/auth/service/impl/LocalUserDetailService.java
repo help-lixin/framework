@@ -46,7 +46,6 @@ public class LocalUserDetailService implements IUserDetailService {
 		return UserDetail.newBuilder() //
 				.mode(loginMode) //登录模式
 				.userInfoId(user.getUserId()) // 用户ID
-				.tenantId(user.getTenantId()) // 租户ID
 				.username(user.getIdentifier()) //
 				.password(user.getCredential()) //
 				.isAccountNonLocked(user.getStatus() == 1 ? true : false) //

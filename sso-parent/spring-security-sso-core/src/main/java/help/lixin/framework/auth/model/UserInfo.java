@@ -13,8 +13,6 @@ public class UserInfo implements Serializable {
 	private String icon;
 	// 注册时间
 	private Date registerTime;
-	// 租户ID
-	private Long tenantId;
 
 	public static Builder newBuilder() {
 		return new Builder();
@@ -25,11 +23,6 @@ public class UserInfo implements Serializable {
 
 		public Builder userInfoId(Long userInfoId) {
 			userInfo.userInfoId = userInfoId;
-			return this;
-		}
-
-		public Builder tenantId(Long tenantId) {
-			userInfo.tenantId = tenantId;
 			return this;
 		}
 
@@ -85,18 +78,9 @@ public class UserInfo implements Serializable {
 		this.registerTime = registerTime;
 	}
 
-	public Long getTenantId() {
-		return tenantId;
-	}
-
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
-	}
-
 	@Override
 	public String toString() {
 		return "UserInfo [userInfoId=" + userInfoId + ", nickname=" + nickname + ", icon=" + icon + ", registerTime="
-				+ registerTime + ", tenantId=" + tenantId + "]";
+				+ registerTime + "]";
 	}
-
 }
