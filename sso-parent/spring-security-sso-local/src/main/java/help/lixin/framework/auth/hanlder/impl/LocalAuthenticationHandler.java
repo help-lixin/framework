@@ -3,8 +3,6 @@ package help.lixin.framework.auth.hanlder.impl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import help.lixin.framework.auth.filter.Constants;
 import help.lixin.framework.auth.handler.AuthenticationHandler;
@@ -27,12 +23,16 @@ public class LocalAuthenticationHandler implements AuthenticationHandler {
 	public void success(HttpServletRequest request, HttpServletResponse response, Authentication authResult)
 			throws IOException, ServletException {
 		UserDetail userDetail = (UserDetail) authResult.getPrincipal();
+		
+		// TODO 是否应该变成token?JWT到底是否适合?如何保证安全?以及退出如何处理?
+		
 		String jwt = Jwts.builder() //
 				.claim(Constants.USER_INFO_ID_KEY, userDetail.getUserInfoId()) // 用户ID
 				.setSubject(authResult.getName()) // 主体信息(账户名称)
 				.setExpiration(new Date(System.currentTimeMillis() + 10 * 60 * 1000)) // 过期时间
 				.signWith(SignatureAlgorithm.HS512, "123456") // 签名处理
 				.compact();
+		
 		// response.setContentType("application/json;charset=utf-8");
 		// Map<String, Object> datas = new LinkedHashMap<String, Object>(3);
 		// datas.put("code", 200);

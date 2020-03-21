@@ -14,6 +14,11 @@ import help.lixin.framework.auth.model.User;
 import help.lixin.framework.auth.service.IUserDetailService;
 import help.lixin.framework.auth.user.UserDetail;
 
+/**
+ * 根据参数(userId)加载用户详细信息.
+ * @author lixin
+ *
+ */
 public class LocalUserDetailService implements IUserDetailService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -45,6 +50,7 @@ public class LocalUserDetailService implements IUserDetailService {
 		}
 		return UserDetail.newBuilder() //
 				.mode(loginMode) //登录模式
+				.accountId(user.getUserId()) // 登录的账号ID
 				.userInfoId(user.getUserInfo().getUserInfoId()) // 用户ID
 				.username(user.getIdentifier()) //
 				.password(user.getCredential()) //

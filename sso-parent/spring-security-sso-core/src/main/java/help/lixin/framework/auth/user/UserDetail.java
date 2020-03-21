@@ -8,10 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserDetail implements UserDetails {
 	private static final long serialVersionUID = -1972260612305175967L;
+	private Long accountId;
 	// 用户基本信息ID
 	private Long userInfoId;
-	// 租户ID
-	private Long tenantId;
 	private String username;
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities = new ArrayList<>(0);
@@ -34,6 +33,11 @@ public class UserDetail implements UserDetails {
 	public static class Builder {
 		private UserDetail userDetail = new UserDetail();
 
+		public Builder accountId(Long accountId) {
+			this.userDetail.accountId = accountId;
+			return this;
+		}
+
 		public Builder userInfoId(Long userInfoId) {
 			userDetail.userInfoId = userInfoId;
 			return this;
@@ -41,11 +45,6 @@ public class UserDetail implements UserDetails {
 
 		public Builder mode(String mode) {
 			userDetail.mode = mode;
-			return this;
-		}
-
-		public Builder tenantId(Long tenantId) {
-			userDetail.tenantId = tenantId;
 			return this;
 		}
 
@@ -78,14 +77,6 @@ public class UserDetail implements UserDetails {
 
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
-	}
-
-	public void setTenantId(Long tenantId) {
-		this.tenantId = tenantId;
-	}
-
-	public Long getTenantId() {
-		return tenantId;
 	}
 
 	public void setUserInfoId(Long userInfoId) {
@@ -141,5 +132,13 @@ public class UserDetail implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
+	}
+
+	public Long getAccountId() {
+		return accountId;
 	}
 }
