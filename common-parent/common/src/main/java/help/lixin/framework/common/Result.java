@@ -1,83 +1,69 @@
 package help.lixin.framework.common;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 返回结果集的封装.
  * 
  * @author lixin
- *
  */
-public class Result implements Serializable {
+public class Result<T> implements Serializable {
 	private static final long serialVersionUID = -8754624853072375484L;
-	// 403
-	private int status;
-	// Forbidden
-	private String error;
-	// Access is denied
+	private int code;
 	private String message;
-	// /userLogin.do
-	private String path;
-	// 1584197721312
-	private long timestamp;
+	private T data;
+	private Map<Object, Object> others = new HashMap<>();
 
-	public static Builder newBuilder() {
-		return new Builder();
+	public static <T> Builder<T> newBuilder() {
+		return new Builder<T>();
 	}
 
-	public static class Builder {
-		private Result result = new Result();
+	public static class Builder<T> {
+		private Result<T> result = new Result<T>();
 
-		// 403
-		public Builder status(int status) {
-			this.result.status = status;
+		public Builder<T> code(int code) {
+			this.result.code = code;
 			return this;
 		}
 
-		// Forbidden
-		public Builder error(String error) {
-			this.result.error = error;
-			return this;
-		}
-
-		// Access is denied
-		public Builder message(String message) {
+		public Builder<T> message(String message) {
 			this.result.message = message;
 			return this;
 		}
 
-		// /userLogin.do
-		public Builder path(String path) {
-			this.result.path = path;
+		public Builder<T> data(T data) {
+			this.result.data = data;
 			return this;
 		}
 
-		// 1584197721312
-		public Builder timestamp(long timestamp) {
-			this.result.timestamp = timestamp;
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		public Builder<T> others(Map others) {
+			if (null != others && !others.isEmpty()) {
+				this.result.others.putAll(others);
+			}
 			return this;
 		}
 
-		public Result build() {
+		public Builder<T> other(Object key, Object value) {
+			if (null != key) {
+				this.result.others.put(key, value);
+			}
+			return this;
+		}
+
+		public Result<T> build() {
 			return result;
 		}
-
 	}
 
-	public int getStatus() {
-		return status;
+	public int getCode() {
+		return code;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public String getError() {
-		return error;
-	}
-
-	public void setError(String error) {
-		this.error = error;
+	public void setCode(int code) {
+		this.code = code;
 	}
 
 	public String getMessage() {
@@ -88,25 +74,24 @@ public class Result implements Serializable {
 		this.message = message;
 	}
 
-	public String getPath() {
-		return path;
+	public T getData() {
+		return data;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setData(T data) {
+		this.data = data;
 	}
 
-	public long getTimestamp() {
-		return timestamp;
+	public Map<Object, Object> getOthers() {
+		return others;
 	}
 
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
+	public void setOthers(Map<Object, Object> others) {
+		this.others = others;
 	}
 
 	@Override
 	public String toString() {
-		return "Result [status=" + status + ", error=" + error + ", message=" + message + ", path=" + path
-				+ ", timestamp=" + timestamp + "]";
+		return "Result [code=" + code + ", message=" + message + ", data=" + data + ", others=" + others + "]";
 	}
 }
