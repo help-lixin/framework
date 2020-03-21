@@ -1,10 +1,7 @@
 -- t_user_info 与 t_user 是一对多的关系(一个人可以存在多个账号).
--- tenant_id 在 t_user 表,代表这个"账号"与"租户ID"绑定.
--- tenant_id 在 t_user_info 表,代表这个"人"与"租户ID"绑定.
--- t_user如果没有配置tenant_id,则:继承:t_user_info中的tenant_id
 
 CREATE TABLE  t_user_info (
-    user_info_id   BIGINT  PRIMARY KEY COMMENT '用户基本信息表主键',
+    user_info_id   BIGINT  PRIMARY KEY COMMENT '用户基本信息主键',
     nickname       VARCHAR(64)  COMMENT '昵称',
     icon           VARCHAR(64)  COMMENT '用户图标',
     register_time  TIMESTAMP    DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间'
