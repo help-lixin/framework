@@ -4,7 +4,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import help.lixin.framework.auth.constant.Constants;
+import help.lixin.framework.auth.mapper.UserResourceMapper;
 import help.lixin.framework.auth.service.IResourceService;
 
 /**
@@ -13,6 +16,9 @@ import help.lixin.framework.auth.service.IResourceService;
  * @author lixin
  */
 public class LocalResourceService implements IResourceService {
+
+	@Autowired
+	private UserResourceMapper userResourceMapper;
 
 	@Override
 	public Set<String> loadResources(Map<String, Object> params) throws IllegalArgumentException {
@@ -24,10 +30,10 @@ public class LocalResourceService implements IResourceService {
 			throw new IllegalArgumentException("用户ID不能为空");
 		}
 		Long userInfoId = (Long) params.get(Constants.USER_INFO_ID_KEY);
-		
-		resourecs.add("/admin");
-		resourecs.add("/hello");
-		
+		Set<String> fetchResources = userResourceMapper.resources(userInfoId);
+		if (null != fetchResources && !fetchResources.isEmpty()) {
+			resourecs.addAll(fetchResources);
+		}
 		return resourecs;
 	}
 }

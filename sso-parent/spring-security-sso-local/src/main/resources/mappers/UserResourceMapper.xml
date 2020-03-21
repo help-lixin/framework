@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="help.lixin.framework.auth.mapper.UserResourceMapper">
+
+	<select id="resources"  resultType="string">
+		SELECT 
+		   m.menu_url url
+		FROM t_user_info_role uir , 
+		     t_role_power rp , 
+		     t_power p , 
+		     t_power_menu pm ,
+		     t_menu m
+		WHERE uir.role_id = rp.role_id 
+		AND rp.power_id = p.power_id
+		AND p.power_type = 'menu'
+		AND p.power_id = pm.power_id
+		AND pm.menu_id = m.menu_id
+		AND uir.user_info_id = #{arg0} 
+		
+		UNION ALL
+		 
+		SELECT 
+		   o.operation_url url
+		FROM t_user_info_role uir , 
+		     t_role_power rp , 
+		     t_power p , 
+		     t_power_operation pc,
+		     t_operation o
+		WHERE uir.role_id = rp.role_id 
+		AND rp.power_id = p.power_id
+		AND p.power_type = 'operation'
+		AND p.power_id = pc.power_id
+		AND pc.operation_id = o.operation_id
+		AND uir.user_info_id = #{arg0} 
+	</select>
+</mapper>

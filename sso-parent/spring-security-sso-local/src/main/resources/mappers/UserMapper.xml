@@ -10,7 +10,7 @@
 		<result column="credential" property="credential"/>
 		<result column="status" property="status"/>
 		<result column="type" property="type"/>
-		
+		<result column="user_info_id" property="userInfoId"/>
 		<association property="userInfo" javaType="help.lixin.framework.auth.model.UserInfo">
 			<id column="user_info_id" property="userInfoId"/>
 			<result column="nickname" property="nickname"/>
