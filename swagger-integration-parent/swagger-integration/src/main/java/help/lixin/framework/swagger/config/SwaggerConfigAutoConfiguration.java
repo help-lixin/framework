@@ -19,7 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableConfigurationProperties(SwaggerProperties.class)
 @ConditionalOnProperty(prefix = "swagger", name = "enable", havingValue = "true")
-public class SwaggerConfig {
+public class SwaggerConfigAutoConfiguration {
 
 	@Autowired
 	private SwaggerProperties swaggerProperties;
