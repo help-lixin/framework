@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 public class CollectionMetaHandler implements ApplicationListener<ContextRefreshedEvent> {
-
+	
 	private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
 	public void setRequestMappingHandlerMapping(RequestMappingHandlerMapping requestMappingHandlerMapping) {
