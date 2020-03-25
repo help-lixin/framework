@@ -1,9 +1,6 @@
 package help.lixin.framework.power.meta.model;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class SystemModel implements Serializable {
 	private static final long serialVersionUID = 7200647607475859022L;
@@ -38,75 +35,6 @@ public class SystemModel implements Serializable {
 	 * 顺序
 	 */
 	private int order = 1;
-
-	// 所有的子系统
-	private Set<SystemModel> systems = new TreeSet<>();
-
-	// 所有的菜单
-	private Set<MenuModel> menus = new TreeSet<>();
-
-	// 所有的页面元素
-	private Set<PageElementModel> elements = new TreeSet<>();
-
-	public void addPageElement(PageElementModel pageElementModel) {
-		if (null != pageElementModel) {
-			elements.add(pageElementModel);
-		}
-	}
-
-	public void addPageElements(Set<PageElementModel> pageElementModels) {
-		if (null != pageElementModels) {
-			elements.addAll(pageElementModels);
-		}
-	}
-
-	public void setElements(Set<PageElementModel> elements) {
-		this.elements = elements;
-	}
-
-	public Set<PageElementModel> getElements() {
-		return elements;
-	}
-
-	public void addMenu(MenuModel menuModel) {
-		if (null != menuModel) {
-			menus.add(menuModel);
-		}
-	}
-
-	public void addMenus(Collection<MenuModel> menuModels) {
-		if (null != menuModels) {
-			menus.addAll(menuModels);
-		}
-	}
-
-	public void addSystem(SystemModel systemModel) {
-		if (null != systemModel) {
-			systems.add(systemModel);
-		}
-	}
-
-	public void addSystems(Collection<SystemModel> systemModels) {
-		if (null != systemModels) {
-			systems.addAll(systemModels);
-		}
-	}
-
-	public void setMenus(Set<MenuModel> menus) {
-		this.menus = menus;
-	}
-
-	public Set<MenuModel> getMenus() {
-		return menus;
-	}
-
-	public Set<SystemModel> getSystems() {
-		return systems;
-	}
-
-	public void setSystems(Set<SystemModel> systems) {
-		this.systems = systems;
-	}
 
 	public static Builder newBuilder() {
 		return new Builder();

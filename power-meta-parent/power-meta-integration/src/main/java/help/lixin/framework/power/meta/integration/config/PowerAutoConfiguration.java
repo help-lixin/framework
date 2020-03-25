@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import help.lixin.framework.power.meta.integration.bootstrapper.CollectionPowerMetaBootstrapper;
 import help.lixin.framework.power.meta.integration.properties.PowerProperties;
-import help.lixin.framework.power.meta.integration.service.CollectionMetaHandler;
 
 @Configuration
 @EnableConfigurationProperties(PowerProperties.class)
@@ -18,15 +18,13 @@ public class PowerAutoConfiguration {
 
 	/**
 	 * 收集元数据处理
-	 * 
 	 * @param requestMappingHandlerMapping
 	 * @return
 	 */
 	@Bean
-	public CollectionMetaHandler collectionMetaHandler(RequestMappingHandlerMapping requestMappingHandlerMapping) {
-		CollectionMetaHandler collectionMetaHandler = new CollectionMetaHandler();
-		collectionMetaHandler.setRequestMappingHandlerMapping(requestMappingHandlerMapping);
-		return collectionMetaHandler;
+	public CollectionPowerMetaBootstrapper collectionPowerMetaBootstrapper(RequestMappingHandlerMapping requestMappingHandlerMapping) {
+		CollectionPowerMetaBootstrapper collectionPowerMetaBootstrapper = new CollectionPowerMetaBootstrapper();
+		collectionPowerMetaBootstrapper.setRequestMappingHandlerMapping(requestMappingHandlerMapping);
+		return collectionPowerMetaBootstrapper;
 	}
-
 }

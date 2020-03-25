@@ -98,4 +98,10 @@ public class OperationModel implements Serializable {
 	public void setOrder(int order) {
 		this.order = order;
 	}
+
+	@Override
+	public String toString() {
+		return "OperationModel [id=" + id + ", name=" + name + ", code=" + code + ", url=" + url + ", menuId=" + menuId
+				+ ", order=" + order + "]";
+	}
 }
