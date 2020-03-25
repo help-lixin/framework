@@ -4,6 +4,7 @@ import help.lixin.framework.power.meta.Systems;
 import help.lixin.framework.power.meta.integration.context.PowerMetaContext;
 import help.lixin.framework.power.meta.integration.plugin.Plugin;
 
+
 public class SystemsPlugin implements Plugin {
 	@Override
 	public void apply(PowerMetaContext context) {

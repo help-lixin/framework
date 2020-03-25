@@ -8,7 +8,7 @@ public class MenuPlugin implements Plugin {
 
 	@Override
 	public void apply(PowerMetaContext context) {
-		// 判断类上是否有注解:@Systems
+		// 判断类上是否有注解:@Menu
 		if (context.hasClassAnnotation(Menu.class)) {
 			// 获得类上的注解(@Menu)信息
 			Class<?> clazz = context.getClazz();
