@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import help.lixin.framework.power.meta.integration.context.PowerMetaContext;
+import help.lixin.framework.power.meta.integration.model.PowerStore;
 
 /**
  * 收集元数据
@@ -18,9 +19,20 @@ import help.lixin.framework.power.meta.integration.context.PowerMetaContext;
  * @author lixin
  */
 public class CollectionPowerMetaBootstrapper implements SmartLifecycle {
+	// 是否运行过,如果已经运行过,则不会再次运行.
 	private AtomicBoolean isRunning = new AtomicBoolean(Boolean.FALSE);
-
+	// 获取Spring中所有的URL与对应的Controller
 	private RequestMappingHandlerMapping requestMappingHandlerMapping;
+	// 最终数据落
+	private PowerStore powerStore;
+
+	public void setPowerStore(PowerStore powerStore) {
+		this.powerStore = powerStore;
+	}
+
+	public PowerStore getPowerStore() {
+		return powerStore;
+	}
 
 	public void setRequestMappingHandlerMapping(RequestMappingHandlerMapping requestMappingHandlerMapping) {
 		this.requestMappingHandlerMapping = requestMappingHandlerMapping;
@@ -46,7 +58,8 @@ public class CollectionPowerMetaBootstrapper implements SmartLifecycle {
 				// 获得方法信息
 				Method method = handlerMethod.getMethod();
 				// 创建上下文
-				PowerMetaContext ctx = new PowerMetaContext(urls, bean, beanType, method);
+				PowerMetaContext ctx = new PowerMetaContext(powerStore, urls, bean, beanType, method);
+				// TODO
 			}
 		}
 	}
