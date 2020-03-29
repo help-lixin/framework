@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import help.lixin.framework.power.meta.integration.context.PowerMetaContext;
 import help.lixin.framework.power.meta.integration.model.PowerStore;
+import help.lixin.framework.power.meta.integration.plugin.Plugin;
 
 /**
  * 收集元数据
@@ -25,6 +26,16 @@ public class CollectionPowerMetaBootstrapper implements SmartLifecycle {
 	private RequestMappingHandlerMapping requestMappingHandlerMapping;
 	// 最终数据落
 	private PowerStore powerStore;
+	// 插件链
+	private Plugin pluginChain;
+
+	public void setPluginChain(Plugin pluginChain) {
+		this.pluginChain = pluginChain;
+	}
+
+	public Plugin getPluginChain() {
+		return pluginChain;
+	}
 
 	public void setPowerStore(PowerStore powerStore) {
 		this.powerStore = powerStore;
@@ -58,8 +69,8 @@ public class CollectionPowerMetaBootstrapper implements SmartLifecycle {
 				// 获得方法信息
 				Method method = handlerMethod.getMethod();
 				// 创建上下文
-				PowerMetaContext ctx = new PowerMetaContext(powerStore, urls, bean, beanType, method);
-				// TODO
+				final PowerMetaContext context = new PowerMetaContext(powerStore, urls, bean, beanType, method);
+				pluginChain.apply(context);
 			}
 		}
 	}

@@ -4,8 +4,8 @@ import help.lixin.framework.power.meta.Menus;
 import help.lixin.framework.power.meta.integration.context.PowerMetaContext;
 import help.lixin.framework.power.meta.integration.plugin.Plugin;
 
-public class MenusPlugin implements Plugin {
 
+public class MenusPlugin implements Plugin {
 	@Override
 	public void apply(PowerMetaContext context) {
 		// 判断类上是否有注解:@Menus
