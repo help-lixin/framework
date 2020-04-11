@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import help.lixin.framework.power.meta.Menu;
+import help.lixin.framework.power.meta.Menus;
+import help.lixin.framework.power.meta.Operation;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -27,12 +30,14 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequestMapping("/test")
 @Api(value = "HelloController", tags = { "测试接口" })
+@Menus(menus = { @Menu(id = "1", name = "测试") })
 public class HelloController {
 
 	private static Map<String, User> userMap = Collections.synchronizedMap(new HashMap<String, User>());
 
 	@ApiOperation(value = "获取用户列表", notes = "获取用户列表")
 	@GetMapping("/users")
+	@Menu(id = "2", name = "获取用户列表", parentId = "1")
 	public List<User> users() {
 		return new ArrayList<>(userMap.values());
 	}
@@ -40,6 +45,7 @@ public class HelloController {
 	@ApiOperation(value = "创建用户", notes = "创建用户时的注意事项")
 	@ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, paramType = "body", dataType = "User")
 	@PostMapping("/add")
+	@Operation(id = "3", name = "创建用户", code = "user:add", menuId = "1")
 	public void addUser(@RequestBody User user) {
 		userMap.put(user.getId(), user);
 	}
@@ -57,6 +63,7 @@ public class HelloController {
 			@ApiImplicitParam(name = "userId", value = "用户名", required = true, paramType = "path", dataType = "String"),
 			@ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, paramType = "body", dataType = "User") })
 	@PutMapping("/update/{userId}")
+	@Operation(id = "4", name = "修改用户", code = "user:update", menuId = "1")
 	public void updateUser(@PathVariable String userId, User user) {
 		userMap.remove(userId);
 		userMap.put(user.getId(), user);
@@ -67,6 +74,7 @@ public class HelloController {
 	// @ApiParam(value = "name",name = "用户的名字",defaultValue = "zhangsan")
 	@ApiImplicitParam(name = "name", value = "用户的名字", paramType = "query", dataType = "String")
 	@GetMapping("/getUser")
+	@Operation(id = "5", name = "根据姓名查询用户", code = "user:get", menuId = "1")
 	public User getUser(@RequestParam(value = "name", required = false) String name) {
 		// 不要深究实现的内容，主要为了演示测试
 		User user = new User();
@@ -90,6 +98,7 @@ public class HelloController {
 	@ApiIgnore() // 添加这个注解将不会显示在UI界面上
 	@ApiOperation(value = "添加用户", notes = "添加一个用户")
 	@PostMapping("/addUser")
+	@Operation(id = "6", name = "添加用户", code = "user:add2", menuId = "1")
 	public User addUser2(@RequestBody User user) {
 		return user;
 	}

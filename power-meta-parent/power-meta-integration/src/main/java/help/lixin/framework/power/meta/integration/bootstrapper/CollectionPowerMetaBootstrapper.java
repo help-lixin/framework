@@ -24,7 +24,7 @@ public class CollectionPowerMetaBootstrapper implements SmartLifecycle {
 	private AtomicBoolean isRunning = new AtomicBoolean(Boolean.FALSE);
 	// 获取Spring中所有的URL与对应的Controller
 	private RequestMappingHandlerMapping requestMappingHandlerMapping;
-	// 最终数据落
+	// 最终数据落地
 	private PowerStore powerStore;
 	// 插件链
 	private Plugin pluginChain;
@@ -70,6 +70,7 @@ public class CollectionPowerMetaBootstrapper implements SmartLifecycle {
 				Method method = handlerMethod.getMethod();
 				// 创建上下文
 				final PowerMetaContext context = new PowerMetaContext(powerStore, urls, bean, beanType, method);
+				// 可以在之前和之后增加Hook
 				pluginChain.apply(context);
 			}
 		}

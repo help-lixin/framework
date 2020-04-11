@@ -22,5 +22,12 @@
     <module>test-parent</module>
     <module>zuul2-basic-guide</module>
     <module>mybatis-integration-parent</module>
+    <module>eureka-server</module>
+    <module>generic-parent</module>
+    <module>auth-parent</module>
+    <module>base-frame-parent</module>
+    <module>swagger-integration-parent</module>
+    <module>common-parent</module>
+    <module>power-meta-parent</module>
   </modules>
 </project>
