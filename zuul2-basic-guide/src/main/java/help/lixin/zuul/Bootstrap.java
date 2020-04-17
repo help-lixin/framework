@@ -7,11 +7,9 @@ import com.netflix.zuul.netty.server.BaseServerStartup;
 import com.netflix.zuul.netty.server.Server;
 
 public class Bootstrap {
-	
 	public static void main(String[] args) {
 		new Bootstrap().start();
 	}
-
 	public void start() {
 		System.out.println("Zuul 2 Sample: starting up.");
 		long startTime = System.currentTimeMillis();

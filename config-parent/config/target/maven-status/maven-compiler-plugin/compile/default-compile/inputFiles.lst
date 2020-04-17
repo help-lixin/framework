@@ -1,8 +1,8 @@
-/Users/lixin/framework/config-parent/config/src/main/java/help/lixin/framework/config/exception/UnknownClassException.java
-/Users/lixin/framework/config-parent/config/src/main/java/help/lixin/framework/config/util/ResourceUtils.java
-/Users/lixin/framework/config-parent/config/src/main/java/help/lixin/framework/config/exception/InstantiationException.java
-/Users/lixin/framework/config-parent/config/src/main/java/help/lixin/framework/config/util/StringUtils.java
-/Users/lixin/framework/config-parent/config/src/main/java/help/lixin/framework/config/Config.java
-/Users/lixin/framework/config-parent/config/src/main/java/help/lixin/framework/config/util/ClassUtils.java
-/Users/lixin/framework/config-parent/config/src/main/java/help/lixin/framework/config/util/CollectionUtils.java
-/Users/lixin/framework/config-parent/config/src/main/java/help/lixin/framework/config/exception/ConfigurationException.java
+/Users/lixin/FwRepository/framework/config-parent/config/src/main/java/help/lixin/framework/config/exception/InstantiationException.java
+/Users/lixin/FwRepository/framework/config-parent/config/src/main/java/help/lixin/framework/config/exception/ConfigurationException.java
+/Users/lixin/FwRepository/framework/config-parent/config/src/main/java/help/lixin/framework/config/util/ResourceUtils.java
+/Users/lixin/FwRepository/framework/config-parent/config/src/main/java/help/lixin/framework/config/Config.java
+/Users/lixin/FwRepository/framework/config-parent/config/src/main/java/help/lixin/framework/config/util/CollectionUtils.java
+/Users/lixin/FwRepository/framework/config-parent/config/src/main/java/help/lixin/framework/config/util/StringUtils.java
+/Users/lixin/FwRepository/framework/config-parent/config/src/main/java/help/lixin/framework/config/util/ClassUtils.java
+/Users/lixin/FwRepository/framework/config-parent/config/src/main/java/help/lixin/framework/config/exception/UnknownClassException.java

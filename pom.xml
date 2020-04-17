@@ -19,12 +19,10 @@
     <module>dynamic-datasource-parent</module>
     <module>dynamic-datasource-init-parent</module>
     <module>transaction-parent</module>
-    <module>test-parent</module>
     <module>zuul2-basic-guide</module>
     <module>mybatis-integration-parent</module>
-    <module>eureka-server</module>
     <module>generic-parent</module>
-    <module>auth-parent</module>
+    <module>sso-parent</module>
     <module>base-frame-parent</module>
     <module>swagger-integration-parent</module>
     <module>common-parent</module>

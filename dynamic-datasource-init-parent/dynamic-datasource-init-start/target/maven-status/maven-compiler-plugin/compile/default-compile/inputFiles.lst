@@ -1,3 +1,3 @@
-/Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-start/src/main/java/help/lixin/framework/dynamic/datasource/DataSourceMetaServiceFactoryBean.java
-/Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-start/src/main/java/help/lixin/framework/dynamic/datasource/DynamicDataSourceAutoConfiguration.java
-/Users/lixin/framework/dynamic-datasource-init-parent/dynamic-datasource-init-start/src/main/java/help/lixin/framework/dynamic/datasource/aop/aspectj/DynamicDataSourceAspect.java
+/Users/lixin/FwRepository/framework/dynamic-datasource-init-parent/dynamic-datasource-init-start/src/main/java/help/lixin/framework/dynamic/datasource/aop/aspectj/DynamicDataSourceAspect.java
+/Users/lixin/FwRepository/framework/dynamic-datasource-init-parent/dynamic-datasource-init-start/src/main/java/help/lixin/framework/dynamic/datasource/DynamicDataSourceAutoConfiguration.java
+/Users/lixin/FwRepository/framework/dynamic-datasource-init-parent/dynamic-datasource-init-start/src/main/java/help/lixin/framework/dynamic/datasource/DataSourceMetaServiceFactoryBean.java

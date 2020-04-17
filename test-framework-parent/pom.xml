@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -8,7 +10,7 @@
 	</parent>
 	<groupId>help.lixin.framework</groupId>
 	<artifactId>test-framework-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>test-framework-parent</name>
 	<url>http://maven.apache.org</url>
@@ -20,7 +22,7 @@
 		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
 		<org.slf4j.slf4j-api.version>1.7.7</org.slf4j.slf4j-api.version>
 	</properties>
-  <modules>
-    <module>test-framework</module>
-  </modules>
+	<modules>
+		<module>test-framework</module>
+	</modules>
 </project>
