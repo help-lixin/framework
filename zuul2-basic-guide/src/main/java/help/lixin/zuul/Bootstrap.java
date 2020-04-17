@@ -16,7 +16,6 @@ public class Bootstrap {
 		int exitCode = 0;
 
 		Server server = null;
-		
 		try {
 			ConfigurationManager.loadCascadedPropertiesFromResources("application");
 			Injector injector = InjectorBuilder.fromModule(new ZuulSampleModule()).createInjector();
