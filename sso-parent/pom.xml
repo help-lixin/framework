@@ -27,5 +27,6 @@
 		<module>spring-security-sso</module>
 		<module>spring-security-sso-local</module>
 		<module>spring-security-sso-remote</module>
+		<module>sso-ui</module>
 	</modules>
 </project>
