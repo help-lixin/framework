@@ -1,8 +1,9 @@
-package help.lixin.framework.route.consumer.controller;
+package help.lixin.framework.route.consumer1.controller;
 
-import help.lixin.framework.route.consumer.service.HelloService;
+import help.lixin.framework.route.consumer1.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -11,7 +12,8 @@ public class ConsumerController {
     private HelloService helloService;
 
     @GetMapping("/consumer")
-    public String index() {
+    public String index(@RequestHeader("x-route") String xroute) {
+        System.out.println("******************************x-route*****************************" + xroute);
         return helloService.hello();
     }
 }

@@ -1,4 +1,4 @@
-package help.lixin.framework.route.consumer.service;
+package help.lixin.framework.route.consumer1.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,5 +1,6 @@
 package help.lixin.framework.route;
 
+import help.lixin.framework.route.config.GatewayLoadBalancerClientAutoConfiguration;
 import help.lixin.framework.route.config.RouteConfig;
 import help.lixin.framework.route.config.RouteMarkerConfiguration;
 import help.lixin.framework.route.properties.RouteProperties;
@@ -12,7 +13,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ImportAutoConfiguration(RouteConfig.class)
+@ImportAutoConfiguration({RouteConfig.class, GatewayLoadBalancerClientAutoConfiguration.class})
 @EnableConfigurationProperties(RouteProperties.class)
 @ConditionalOnBean(RouteMarkerConfiguration.Marker.class)
 public class RouteAutoConfiguration {

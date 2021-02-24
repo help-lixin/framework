@@ -41,6 +41,6 @@
 
     <modules>
         <module>route-service</module>
-        <module>route-example</module>
+        <module>route-example-parent</module>
     </modules>
 </project>

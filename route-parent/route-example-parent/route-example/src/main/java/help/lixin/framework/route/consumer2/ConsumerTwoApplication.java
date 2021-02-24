@@ -1,4 +1,4 @@
-package help.lixin.framework.route.consumer;
+package help.lixin.framework.route.consumer2;
 
 import help.lixin.framework.route.annotation.EnableRoute;
 import org.springframework.boot.SpringApplication;
@@ -10,11 +10,11 @@ import org.springframework.web.client.RestTemplate;
 
 @EnableEurekaClient
 @EnableRoute
-@SpringBootApplication(scanBasePackages = "help.lixin.framework.route.consumer")
-public class ConsumerApplication {
+@SpringBootApplication(scanBasePackages = "help.lixin.framework.route.consumer2")
+public class ConsumerTwoApplication {
     public static void main(String[] args) {
-        System.setProperty("spring.profiles.active","consumer");
-        SpringApplication.run(ConsumerApplication.class, args);
+        System.setProperty("spring.profiles.active","consumer2");
+        SpringApplication.run(ConsumerTwoApplication.class, args);
     }
 
     @Bean
