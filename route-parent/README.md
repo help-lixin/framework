@@ -9,6 +9,8 @@
 > 4. 启动ConsumerApplication.  
 > 5. 启动测试类(RouteTest). 
 ### 3.route-gateway-example测试流程
+> 注意使用gateway时,要增加这个配置项(spring.autoconfigure.exclude=org.springframework.cloud.gateway.config.GatewayLoadBalancerClientAutoConfiguration),否则,会启动不成功.  
+
 ```
 // 案例一(test-provider的请求固定分配在:127.0.0.1:8081)
 curl --header "x-route:test-provider/127.0.0.1:8081"  http://localhost:9000/test-consumer/consumer
