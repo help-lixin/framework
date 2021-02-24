@@ -38,6 +38,7 @@ public class RouteConfig implements ApplicationContextAware, InitializingBean {
 
     /**
      * 对LoadBalancerClient进行扩展.
+     *
      * @param springClientFactory
      * @return
      */
@@ -54,13 +55,14 @@ public class RouteConfig implements ApplicationContextAware, InitializingBean {
 
     /**
      * 添加Servlet过滤器,负责把x-route信息转入到ThredLocal里.
+     *
      * @return
      */
     @Bean
     @ConditionalOnMissingClass("org.springframework.cloud.gateway.config.GatewayAutoConfiguration")
     @ConditionalOnWebApplication
-    public RouteFilter routeFilter(){
-        return  new RouteFilter();
+    public RouteFilter routeFilter() {
+        return new RouteFilter();
     }
 
 
@@ -78,6 +80,7 @@ public class RouteConfig implements ApplicationContextAware, InitializingBean {
 
     /**
      * 要将路由信息继续往下传递
+     *
      * @return
      */
     @Bean
@@ -92,7 +95,7 @@ public class RouteConfig implements ApplicationContextAware, InitializingBean {
         if (null != restTemplate) {
             List<ClientHttpRequestInterceptor> list = new ArrayList<ClientHttpRequestInterceptor>(restTemplate.getInterceptors());
             list.add(routeRequestInterceptor());
-            if(logger.isDebugEnabled()){
+            if (logger.isDebugEnabled()) {
                 logger.debug("add [RouteRequestInterceptor] to [RestTemplate] SUCCESS");
             }
             restTemplate.setInterceptors(list);

@@ -51,9 +51,9 @@ public class RibbonLoadBalancerClientProxy implements LoadBalancerClient {
             // 2. serviceId进行比较相同的话,直接构建:RibbonServer
             // 3. serviceId不同的话,直接放过(委托给代理对象进行处理).
             RouteInfo routeInfo = RouteInfoHolder.get().getRouteInfos().get(serviceId);
-            if(null != routeInfo){
-                if(logger.isDebugEnabled()){
-                    logger.debug("proxy micro service name [{}] to rule [{}]", serviceId , routeInfo);
+            if (null != routeInfo) {
+                if (logger.isDebugEnabled()) {
+                    logger.debug("proxy micro service name [{}] to rule [{}]", serviceId, routeInfo);
                 }
                 InstanceInfo instanceInfo = InstanceInfo.Builder.newBuilder()
                         .setAppName(routeInfo.getServiceId())
