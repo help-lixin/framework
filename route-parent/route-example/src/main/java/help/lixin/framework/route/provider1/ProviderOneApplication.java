@@ -1,5 +1,6 @@
 package help.lixin.framework.route.provider1;
 
+import help.lixin.framework.route.annotation.EnableRoute;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @EnableEurekaClient
+@EnableRoute
 @SpringBootApplication(scanBasePackages = "help.lixin.framework.route.provider1.controller")
 public class ProviderOneApplication {
     public static void main(String[] args)

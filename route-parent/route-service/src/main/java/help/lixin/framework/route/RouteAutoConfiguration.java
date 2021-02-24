@@ -1,19 +1,28 @@
 package help.lixin.framework.route;
 
 import help.lixin.framework.route.config.RouteConfig;
+import help.lixin.framework.route.config.RouteMarkerConfiguration;
 import help.lixin.framework.route.properties.RouteProperties;
+import help.lixin.framework.route.servlet.filter.RouteFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ImportAutoConfiguration(RouteConfig.class)
 @EnableConfigurationProperties(RouteProperties.class)
-@ConditionalOnProperty(prefix = "customer.route", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnBean(RouteMarkerConfiguration.Marker.class)
 public class RouteAutoConfiguration {
-    private  RouteProperties routeProperties;
+    private Logger logger = LoggerFactory.getLogger(RouteAutoConfiguration.class);
 
+    private RouteProperties routeProperties;
 
+    {
+        if (logger.isDebugEnabled()) {
+            logger.debug("enabled Module [{}] SUCCESS.", RouteAutoConfiguration.class.getSimpleName());
+        }
+    }
 }

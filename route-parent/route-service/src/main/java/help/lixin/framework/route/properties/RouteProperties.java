@@ -2,7 +2,7 @@ package help.lixin.framework.route.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "customer.route")
+@ConfigurationProperties(prefix = "route")
 public class RouteProperties {
     private boolean enabled = false;
 
