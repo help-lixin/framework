@@ -1,11 +1,13 @@
-/Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/provider2/controller/HelloController.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/provider1/ProviderOneApplication.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/provider2/ProviderTwoApplication.java
+/Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/zipkin/ZipkinApplication.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/consumer2/ConsumerTwoApplication.java
-/Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/consumer1/controller/ConsumerController.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/consumer1/ConsumerOneApplication.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/provider1/controller/HelloController.java
-/Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/consumer2/service/HelloService.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/consumer1/service/HelloService.java
+/Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/zipkin/controller/CollectorController.java
+/Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/provider2/controller/HelloController.java
+/Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/consumer1/controller/ConsumerController.java
+/Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/consumer2/service/HelloService.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/eureka/server/EurekaServer.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/src/main/java/help/lixin/framework/sleuth/example/consumer2/controller/ConsumerController.java

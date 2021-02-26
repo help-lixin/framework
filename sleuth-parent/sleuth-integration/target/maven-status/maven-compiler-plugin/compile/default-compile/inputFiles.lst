@@ -1,7 +1,9 @@
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-integration/src/main/java/help/lixin/framework/sleuth/reporter/LocalLogTraceReporter.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-integration/src/main/java/help/lixin/framework/sleuth/properties/SleuthLogProperties.java
+/Users/lixin/FwRepository/framework/sleuth-parent/sleuth-integration/src/main/java/help/lixin/framework/sleuth/predicate/SpanPredicate.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-integration/src/main/java/help/lixin/framework/sleuth/config/SleuthConfig.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-integration/src/main/java/help/lixin/framework/sleuth/sender/LocalLogFileSender.java
+/Users/lixin/FwRepository/framework/sleuth-parent/sleuth-integration/src/main/java/help/lixin/framework/sleuth/predicate/DefaultSpanPredicate.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-integration/src/main/java/help/lixin/framework/sleuth/sender/LocalLogCall.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-integration/src/main/java/help/lixin/framework/sleuth/properties/CustomSamplerProperties.java
 /Users/lixin/FwRepository/framework/sleuth-parent/sleuth-integration/src/main/java/help/lixin/framework/sleuth/autoconfig/SleuthAutoConfig.java

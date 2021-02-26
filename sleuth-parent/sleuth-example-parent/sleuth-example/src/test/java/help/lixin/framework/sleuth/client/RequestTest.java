@@ -20,7 +20,7 @@ public class RequestTest {
         // 发送的URL
         String url = "http://localhost:7070/consumer";
         RestTemplate template = new RestTemplate();
-        for (int i = 0; i < 500; i++) { // 总共发送10次请求
+        for (int i = 0; i < 1000; i++) { // 总共发送10次请求
             String result = template.getForEntity(url, String.class).getBody();
             // 如果返回的内容在:Set<String>,则代表通过
             Assert.assertEquals(true, expecteds.contains(result));

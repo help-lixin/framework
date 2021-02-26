@@ -1,7 +1,9 @@
+help/lixin/framework/sleuth/predicate/DefaultSpanPredicate.class
 help/lixin/framework/sleuth/properties/SleuthLogProperties.class
 help/lixin/framework/sleuth/sender/LocalLogCall.class
 help/lixin/framework/sleuth/autoconfig/SleuthAutoConfig.class
 help/lixin/framework/sleuth/reporter/LocalLogTraceReporter.class
+help/lixin/framework/sleuth/predicate/SpanPredicate.class
 help/lixin/framework/sleuth/properties/CustomSamplerProperties.class
 help/lixin/framework/sleuth/config/SleuthConfig.class
 help/lixin/framework/sleuth/sender/LocalLogFileSender.class
