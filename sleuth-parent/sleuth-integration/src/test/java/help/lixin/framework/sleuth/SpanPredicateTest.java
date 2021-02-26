@@ -15,14 +15,14 @@ public class SpanPredicateTest {
         SpanPredicate spanPredicate1 = new SpanPredicate<Span>(){
             @Override
             public boolean test(Span span) {
-                return false;
+                return true;
             }
         };
 
         SpanPredicate spanPredicate2 = new SpanPredicate<Span>(){
             @Override
             public boolean test(Span span) {
-                return false;
+                return true;
             }
         };
 

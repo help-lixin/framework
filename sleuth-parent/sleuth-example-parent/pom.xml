@@ -18,5 +18,6 @@
 
     <modules>
         <module>sleuth-example</module>
+        <module>sleuth-gateway-example</module>
     </modules>
 </project>

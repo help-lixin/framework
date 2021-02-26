@@ -1,4 +1,4 @@
-package help.lixin.framework.sleuth.client;
+package client;
 
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashSet;
 import java.util.Set;
 
-public class RequestTest {
+public class GatewayRequestTest {
 
     @Test
     @Ignore
@@ -20,7 +20,7 @@ public class RequestTest {
         expecteds.add(expected2);
 
         // 发送的URL
-        String url = "http://localhost:7070/consumer";
+        String url = "http://localhost:9000/test-consumer/consumer";
         RestTemplate template = new RestTemplate();
         for (int i = 0; i < 1000; i++) { // 总共发送10次请求
             String result = template.getForEntity(url, String.class).getBody();

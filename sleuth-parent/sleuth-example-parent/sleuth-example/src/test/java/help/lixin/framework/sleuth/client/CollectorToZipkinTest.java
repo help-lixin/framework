@@ -1,6 +1,7 @@
 package help.lixin.framework.sleuth.client;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,7 @@ import java.nio.file.Paths;
 
 public class CollectorToZipkinTest {
     @Test
+    @Ignore
     public void testCollectorToZipkin() throws Exception {
         String zipKinServer = "http://127.0.0.1:9411/api/v2/spans";
         String logFile = "/Users/lixin/FwRepository/framework/sleuth-parent/sleuth-example-parent/sleuth-example/target/zipkin.log";
