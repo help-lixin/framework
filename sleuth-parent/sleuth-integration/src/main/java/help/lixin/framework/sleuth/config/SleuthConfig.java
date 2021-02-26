@@ -1,0 +1,39 @@
+package help.lixin.framework.sleuth.config;
+
+import brave.sampler.CountingSampler;
+import brave.sampler.Sampler;
+import help.lixin.framework.sleuth.properties.CustomSamplerProperties;
+import help.lixin.framework.sleuth.properties.SleuthLogProperties;
+import help.lixin.framework.sleuth.reporter.LocalLogTraceReporter;
+import help.lixin.framework.sleuth.sender.LocalLogFileSender;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import zipkin2.Span;
+import zipkin2.reporter.AsyncReporter;
+import zipkin2.reporter.Reporter;
+import zipkin2.reporter.Sender;
+
+@Configuration
+public class SleuthConfig {
+
+    @Autowired
+    private SleuthLogProperties sleuthLogProperties;
+
+    @Autowired
+    private CustomSamplerProperties customSamplerProperties;
+
+
+    @Bean
+    public Sampler sleuthTraceSampler() {
+        return CountingSampler.create(customSamplerProperties.getRate());
+    }
+
+    @Bean
+    public Reporter<zipkin2.Span> reporter() {
+        LocalLogTraceReporter localLogTraceReporter = new LocalLogTraceReporter();
+        return localLogTraceReporter;
+    }
+}
