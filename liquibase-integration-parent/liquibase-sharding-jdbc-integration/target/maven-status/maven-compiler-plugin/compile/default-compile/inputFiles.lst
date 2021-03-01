@@ -1,0 +1,14 @@
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/model/TableInfo.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/properties/LiquibaseIntegrationProperties.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/model/DatabaseType.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/model/DataBaseInfo.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/lifecle/LiquibaseLifecycle.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/config/LiquibaseCustomizer.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/config/LiquibaseShardingJdcbIntegrationConfig.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/model/TableType.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/config/LiquibaseConfig.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/LiquibaseAutoConfiguration.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/DisableSpringLiquibaseInegration.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/accessor/LiquibaseResourceLoader.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/accessor/SpringResourceAccessor.java
+/Users/lixin/FwRepository/framework/liquibase-integration-parent/liquibase-sharding-jdbc-integration/src/main/java/help/lixin/framework/liquibase/accessor/AbstractResourceAccessor.java

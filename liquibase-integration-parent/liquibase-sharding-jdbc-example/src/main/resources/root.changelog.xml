@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <!-- 逻辑表 -->
+    <!-- 逻辑有代表是要分片的,在编写XML时,要注意两个点: -->
+    <!-- 1. tableName="${t_order}",这里的变量名称是固定了的,是在sharding-jdbc中你指定的逻辑表名称 -->
+    <!-- 2. context="LogicalTable",因为在sharding-jdbc中默认表都统一指向默认库(不进行分表分库) -->
+    <!-- 所以,需要有一个字段来区别,逻辑表或物理表. -->
+    <!-- 3. liquibase 是根据:id+author计算(check sum),所以,要在auth上增加标识(_${t_order}) -->
+    <changeSet id="1" author="lixin_${t_order}" context="LogicalTable">
+        <createTable tableName="${t_order}">
+            <column name="order_id" type="bigint(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="price" type="decimal(10,2)"/>
+            <column name="user_id" type="bigint(20)"/>
+            <column name="status" type="varchar(50)"/>
+        </createTable>
+    </changeSet>
+    <!-- 物理表 -->
+    <changeSet id="2" author="lixin" context="PhysicalTable">
+        <createTable tableName="t_user">
+            <column name="user_id" type="bigint(20)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="fullname" type="varchar(255)"/>
+            <column name="user_type" type="char(1)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
