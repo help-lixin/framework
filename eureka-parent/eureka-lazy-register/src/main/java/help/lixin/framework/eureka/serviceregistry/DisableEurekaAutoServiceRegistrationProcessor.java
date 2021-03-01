@@ -9,8 +9,11 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 
-public class EurekaAutoServiceRegistrationOverrideProcessor implements BeanFactoryPostProcessor {
-    private Logger logger = LoggerFactory.getLogger(EurekaAutoServiceRegistrationOverrideProcessor.class);
+/**
+ * 禁用Spring自带的:EurekaAutoServiceRegistration,添加自定义的.
+ */
+public class DisableEurekaAutoServiceRegistrationProcessor implements BeanFactoryPostProcessor {
+    private Logger logger = LoggerFactory.getLogger(DisableEurekaAutoServiceRegistrationProcessor.class);
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {

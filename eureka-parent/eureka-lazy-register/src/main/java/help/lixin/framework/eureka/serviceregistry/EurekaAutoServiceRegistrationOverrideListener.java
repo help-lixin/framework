@@ -5,20 +5,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.eureka.serviceregistry.EurekaAutoServiceRegistration;
 
 import java.util.Set;
-import java.util.concurrent.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 对EurekaAutoServiceRegistrationOverride进行监听
  */
 public class EurekaAutoServiceRegistrationOverrideListener {
     private Logger logger = LoggerFactory.getLogger(EurekaAutoServiceRegistrationOverrideListener.class);
-
-    private ScheduledExecutorService scheduleExecutorService;
-
     private EurekaAutoServiceRegistration eurekaAutoServiceRegistration;
-
+    // 间隔多少秒执行一次.
     private final long delay;
-
     private volatile boolean isRunning = false;
 
     public EurekaAutoServiceRegistrationOverrideListener(EurekaAutoServiceRegistration eurekaAutoServiceRegistration, long delay) {
@@ -32,7 +28,13 @@ public class EurekaAutoServiceRegistrationOverrideListener {
 
     public Runnable runnable() {
         return () -> {
+            int count = 0;
             while (!isRunning) {
+                count++;
+                if (count > 100) {
+                    logger.warn("EurekaAutoServiceRegistration Register Service FAIL.");
+                    isRunning = true;
+                }
                 if (eurekaAutoServiceRegistration instanceof EurekaAutoServiceRegistrationOverride) {
                     EurekaAutoServiceRegistrationOverride eurekaAutoServiceRegistrationOverride = (EurekaAutoServiceRegistrationOverride) eurekaAutoServiceRegistration;
                     Set<String> expectedEvents = eurekaAutoServiceRegistrationOverride.getExpectedEventTriggerRegister();
