@@ -41,6 +41,11 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>help.lixin.framework.environment</groupId>
+            <artifactId>environment-service</artifactId>
+            <version>${environment-service.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
