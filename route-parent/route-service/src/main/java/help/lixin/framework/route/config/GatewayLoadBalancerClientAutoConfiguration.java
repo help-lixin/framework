@@ -22,7 +22,6 @@ public class GatewayLoadBalancerClientAutoConfiguration {
 
     @Bean
     @ConditionalOnBean(LoadBalancerClient.class)
-    @ConditionalOnMissingBean(LoadBalancerClientFilter.class)
     @ConditionalOnClass(name = "org.springframework.cloud.gateway.config.GatewayAutoConfiguration")
     public LoadBalancerClientFilter loadBalancerClientFilter(LoadBalancerClient client, LoadBalancerProperties properties) {
         return new LoadBalancerClientExtFilter(client, properties);

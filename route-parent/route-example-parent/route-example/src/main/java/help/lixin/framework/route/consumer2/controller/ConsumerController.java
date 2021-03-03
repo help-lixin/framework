@@ -12,7 +12,7 @@ public class ConsumerController {
     private HelloService helloService;
 
     @GetMapping("/consumer")
-    public String index(@RequestHeader("x-route") String xroute) {
+    public String index(@RequestHeader(value = "x-route",required = false) String xroute) {
         System.out.println("******************************x-route*****************************" + xroute);
         return helloService.hello();
     }
