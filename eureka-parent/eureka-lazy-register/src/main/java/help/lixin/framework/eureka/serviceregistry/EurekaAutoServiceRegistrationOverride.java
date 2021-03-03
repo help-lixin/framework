@@ -19,6 +19,7 @@ import org.springframework.context.event.ContextClosedEvent;
 import help.lixin.framework.eureka.properties.EurekaLazyRegisterProperties;
 import help.lixin.framework.event.RegisterServiceStartEvent;
 
+
 public class EurekaAutoServiceRegistrationOverride extends EurekaAutoServiceRegistration {
 	private Logger logger = LoggerFactory.getLogger(EurekaAutoServiceRegistrationOverride.class);
 
@@ -37,7 +38,7 @@ public class EurekaAutoServiceRegistrationOverride extends EurekaAutoServiceRegi
 	private Set<String> expectedEventTriggerRegister = new HashSet<>();
 
 	public EurekaAutoServiceRegistrationOverride(ApplicationContext context, EurekaServiceRegistry serviceRegistry,
-			EurekaRegistration registration, EurekaLazyRegisterProperties eurekaLazyRegisterProperties) {
+												 EurekaRegistration registration, EurekaLazyRegisterProperties eurekaLazyRegisterProperties) {
 		super(context, serviceRegistry, registration);
 		this.context = context;
 		this.serviceRegistry = serviceRegistry;
