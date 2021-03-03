@@ -11,6 +11,7 @@ import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.PropertySource;
 import sun.misc.Service;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -20,16 +21,29 @@ public class FrameworkEnvironmentPostProcessor implements EnvironmentPostProcess
 
     private static final String name = "_frameworkEnv";
 
+    // 允许对Bean的定义信息过时行重写
+    private String beanDefinitionOverridingKey = "spring.main.allow-bean-definition-overriding";
+    private String beanDefinitionOverridingValue = "true";
+
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         ConfigurableEnvironmentContext.getInstance().setConfigurableEnvironment(environment);
         Map<String, Object> frameworkEnvironment = FrameworkEnvironmentMap.getInstance().getFrameworkEnvironment();
+        // 添加默认的,允许对bean进行重写.
+        frameworkEnvironment.put(beanDefinitionOverridingKey, beanDefinitionOverridingValue);
         try {
             Iterator<EnvironmentConfigService> environmentConfigs = Service.providers(EnvironmentConfigService.class);
             while (environmentConfigs.hasNext()) {
                 EnvironmentConfigService environmentConfigService = environmentConfigs.next();
                 try {
-                    environmentConfigService.config(frameworkEnvironment);
+                    // 1. 创建新的Map给Hook
+                    Map<String, Object> emptyTemplate = new HashMap<>();
+                    // 2. 调用:config函数
+                    environmentConfigService.config(emptyTemplate);
+                    // 3. map不为空的情况下,添加到总的Map(FrameworkEnvironmentMap.getInstance().getFrameworkEnvironment())中
+                    if (!emptyTemplate.isEmpty()) {
+                        frameworkEnvironment.putAll(emptyTemplate);
+                    }
                 } catch (Exception ignore) {
                     logger.warn("call [{}],exception:[{}]", environmentConfigService, ignore);
                 }

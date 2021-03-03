@@ -12,13 +12,8 @@ public class GatewayEnvironmentConfigService implements EnvironmentConfigService
     private String excludeGatewayKey = "spring.autoconfigure.exclude";
     private String excludeGatewayValue = "org.springframework.cloud.gateway.config.GatewayLoadBalancerClientAutoConfiguration";
 
-    // 允许对Bean的定义信息过时行重写
-    private String beanDefinitionOverridingKey = "spring.main.allow-bean-definition-overriding";
-    private String beanDefinitionOverridingValue = "true";
-
     @Override
     public void config(Map<String, Object> map) {
         map.put(excludeGatewayKey, excludeGatewayValue);
-        map.put(beanDefinitionOverridingKey, beanDefinitionOverridingValue);
     }
 }
