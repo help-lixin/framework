@@ -1,0 +1,17 @@
+help/lixin/framework/code/generator/core/model/CodeGeneratorInfo.class
+help/lixin/framework/code/generator/core/constant/Constants.class
+help/lixin/framework/code/generator/core/annotation/Property.class
+help/lixin/framework/code/generator/core/model/Pom.class
+help/lixin/framework/code/generator/core/model/Driver.class
+help/lixin/framework/code/generator/core/customizer/JavaClientGeneratorConfigurationCustomizer.class
+help/lixin/framework/code/generator/core/util/CodeGeneratorHelp.class
+help/lixin/framework/code/generator/core/CodeGeneratorController.class
+help/lixin/framework/code/generator/core/model/ProjectConfig$Builder.class
+help/lixin/framework/code/generator/core/model/ProjectConfig.class
+help/lixin/framework/code/generator/core/util/ParseContext.class
+help/lixin/framework/code/generator/core/CodeGeneratorLaunch.class
+help/lixin/framework/code/generator/core/customizer/TableConfigurationCustomizer.class
+help/lixin/framework/code/generator/core/customizer/JavaModelGeneratorConfigurationCustomizer.class
+help/lixin/framework/code/generator/core/annotation/Propertys.class
+help/lixin/framework/code/generator/core/customizer/SqlMapGeneratorConfigurationCustomizer.class
+help/lixin/framework/code/generator/core/model/Table.class

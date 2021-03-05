@@ -1,0 +1,48 @@
+<assembly>
+    <id>all</id>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <formats>
+        <format>dir</format>
+        <format>tar.gz</format>
+        <format>zip</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <includes>
+                <include>conf/**</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <includes>
+                <include>lib/**</include>
+                <include>ext-lib/**</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <includes>
+                <include>bin/**</include>
+            </includes>
+            <fileMode>0755</fileMode>
+        </fileSet>
+    </fileSets>
+
+    <moduleSets>
+        <moduleSet>
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <includes>
+                <include>help.lixin.framework.code.generator:code-generator-core</include>
+                <include>help.lixin.framework.code.generator:code-generator-plugins</include>
+            </includes>
+            <binaries>
+                <outputDirectory>lib/</outputDirectory>
+                <unpack>false</unpack>
+                <dependencySets>
+                    <dependencySet>
+                        <outputDirectory>lib/</outputDirectory>
+                    </dependencySet>
+                </dependencySets>
+            </binaries>
+        </moduleSet>
+    </moduleSets>
+</assembly>

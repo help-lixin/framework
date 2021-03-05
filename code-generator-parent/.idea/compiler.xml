@@ -6,8 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="code-generator" />
+        <module name="code-generator-core" />
+        <module name="code-generator-distribution" />
+        <module name="code-generator-plugins" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="code-generator-example" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

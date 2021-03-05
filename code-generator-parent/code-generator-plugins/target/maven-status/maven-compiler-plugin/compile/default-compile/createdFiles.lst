@@ -1,0 +1,15 @@
+help/lixin/framework/code/generator/strategy/controller/GeneratedControllerJavaFile.class
+help/lixin/framework/code/generator/strategy/controller/GeneratedControllerJavaFile$Holder.class
+help/lixin/framework/code/generator/plugins/ServiceCodeGeneratorPlugin.class
+help/lixin/framework/code/generator/strategy/service/GeneratedServiceInterfaceImplJavaFile$1.class
+help/lixin/framework/code/generator/plugins/ControllerCodeGeneratorPlugin.class
+help/lixin/framework/code/generator/strategy/service/GeneratedServiceInterfaceJavaFile$Holder.class
+help/lixin/framework/code/generator/strategy/service/GeneratedServiceInterfaceJavaFile$1.class
+help/lixin/framework/code/generator/plugins/PomDocument.class
+help/lixin/framework/code/generator/plugins/PomCodeGeneratorPlugin.class
+help/lixin/framework/code/generator/strategy/controller/GeneratedControllerJavaFile$1.class
+help/lixin/framework/code/generator/strategy/service/GeneratedServiceInterfaceImplJavaFile$Holder.class
+help/lixin/framework/code/generator/plugins/PomXmlFormatter.class
+help/lixin/framework/code/generator/strategy/service/GeneratedServiceInterfaceImplJavaFile.class
+help/lixin/framework/code/generator/strategy/service/GeneratedServiceInterfaceJavaFile.class
+help/lixin/framework/code/generator/strategy/AbstractGeneratedJavaFile.class

@@ -1,0 +1,7 @@
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-plugins/src/main/java/help/lixin/framework/code/generator/strategy/AbstractGeneratedJavaFile.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-plugins/src/main/java/help/lixin/framework/code/generator/plugins/ControllerCodeGeneratorPlugin.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-plugins/src/main/java/help/lixin/framework/code/generator/plugins/ServiceCodeGeneratorPlugin.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-plugins/src/main/java/help/lixin/framework/code/generator/strategy/service/GeneratedServiceInterfaceImplJavaFile.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-plugins/src/main/java/help/lixin/framework/code/generator/plugins/PomCodeGeneratorPlugin.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-plugins/src/main/java/help/lixin/framework/code/generator/strategy/controller/GeneratedControllerJavaFile.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-plugins/src/main/java/help/lixin/framework/code/generator/strategy/service/GeneratedServiceInterfaceJavaFile.java

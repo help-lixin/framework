@@ -1,0 +1,16 @@
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/model/Driver.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/util/CodeGeneratorHelp.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/annotation/Property.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/constant/Constants.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/model/Table.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/customizer/JavaClientGeneratorConfigurationCustomizer.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/util/ParseContext.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/annotation/Propertys.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/customizer/JavaModelGeneratorConfigurationCustomizer.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/CodeGeneratorController.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/CodeGeneratorLaunch.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/model/Pom.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/model/CodeGeneratorInfo.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/model/ProjectConfig.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/customizer/SqlMapGeneratorConfigurationCustomizer.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/customizer/TableConfigurationCustomizer.java
