@@ -146,4 +146,21 @@ public class CodeGeneratorInfo implements Serializable {
     public String getMapperXmlProject() {
         return getProject() + SEPARATOR + projectConfig.getMapperXmlProject();
     }
+
+    @Override
+    public String toString() {
+        return "CodeGeneratorInfo{" +
+                "extPropertiesFile='" + extPropertiesFile + '\'' +
+                ", thirdPartyJarPath='" + thirdPartyJarPath + '\'' +
+                ", workDir='" + workDir + '\'' +
+                ", pom=" + pom +
+                ", projectName='" + projectName + '\'' +
+                ", driver=" + driver +
+                ", projectConfig=" + projectConfig +
+                ", id='" + id + '\'' +
+                ", targetRuntime='" + targetRuntime + '\'' +
+                ", defaultModelType='" + defaultModelType + '\'' +
+                ", tables=" + tables +
+                '}';
+    }
 }

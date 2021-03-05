@@ -4,19 +4,20 @@ import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public abstract class AbstractGeneratedJavaFile {
+    private final Logger logger = LoggerFactory.getLogger(AbstractGeneratedJavaFile.class);
+
     protected static final String CONTROLLER = "Controller";
     protected static final String SERVICE = "Service";
     protected static final String ISERVICE = "I";
     protected static final String IMPL = "impl";
     protected static final String CONTROLLER_PACKAGE = "controller";
     protected static final String SPOT = ".";
-
-//    public abstract GeneratedJavaFile build(IntrospectedTable introspectedTable, String targetProject,
-//                                            String targetPackage);
 
     public abstract GeneratedJavaFile build(IntrospectedTable introspectedTable, String... args);
 

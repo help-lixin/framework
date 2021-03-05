@@ -9,14 +9,16 @@ import help.lixin.framework.code.generator.core.customizer.SqlMapGeneratorConfig
 import help.lixin.framework.code.generator.core.customizer.TableConfigurationCustomizer;
 import help.lixin.framework.code.generator.core.model.CodeGeneratorInfo;
 import help.lixin.framework.code.generator.core.model.Driver;
-import help.lixin.framework.code.generator.core.util.CodeGeneratorHelp;
 import help.lixin.framework.code.generator.core.model.Pom;
 import help.lixin.framework.code.generator.core.model.ProjectConfig;
+import help.lixin.framework.code.generator.core.util.CodeGeneratorHelp;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.api.Plugin;
 import org.mybatis.generator.config.*;
 import org.mybatis.generator.exception.InvalidConfigurationException;
 import org.mybatis.generator.internal.DefaultShellCallback;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +27,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CodeGeneratorController {
+
+    private final Logger logger = LoggerFactory.getLogger(CodeGeneratorController.class);
+
     private CodeGeneratorInfo model;
     private Configuration configuration;
     private Properties extProperties;
@@ -44,6 +49,8 @@ public class CodeGeneratorController {
         loadContext();
         // 初始化磁盘目录
         initDir();
+        logger.info("generator code before model:[{}]", model);
+        logger.info("generator code before extProperties:[{}]", extProperties);
     }
 
 
@@ -55,6 +62,7 @@ public class CodeGeneratorController {
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(configuration, callback, warnings);
         myBatisGenerator.generate(null);
         if (!warnings.isEmpty()) {
+            logger.error("call mbg exception:[{}]", warnings);
             throw new Exception(warnings.get(0));
         }
     }
@@ -67,13 +75,17 @@ public class CodeGeneratorController {
         // 设置第三方jar路径
         String thirdPartyJarPath = model.getThirdPartyJarPath();
         if (null != thirdPartyJarPath) {
-            model.setThirdPartyJarPath(appHome + "/" + thirdPartyJarPath);
+            String tmpPath = appHome + "/" + thirdPartyJarPath;
+            logger.info("load third part jar path:[{}]", tmpPath);
+            model.setThirdPartyJarPath(tmpPath);
         }
 
+        // 加载用户自定义的变量
         Properties extProperties = new Properties();
         String extPropertiesFilePath = model.getExtPropertiesFile();
         if (null != extPropertiesFilePath) {
             Properties properties = CodeGeneratorHelp.loadExtProperties(extPropertiesFilePath);
+            logger.info("load ext properties:[{}]", properties);
             if (null != properties) {
                 extProperties.putAll(properties);
             }
@@ -103,10 +115,7 @@ public class CodeGeneratorController {
             }
             extProperties.put(Constants.POM_ARTIFACTED_ID, artifactId);
             extProperties.put(Constants.POM_VERSION, pom.getVersion());
-
-
         }
-
         return extProperties;
     }
 
@@ -130,6 +139,11 @@ public class CodeGeneratorController {
         context.setId(id);
         context.setTargetRuntime(model.getTargetRuntime());
 
+        CommentGeneratorConfiguration commentGeneratorConfiguration = new CommentGeneratorConfiguration();
+        commentGeneratorConfiguration.addProperty("suppressAllComments", "false");
+        commentGeneratorConfiguration.addProperty("suppressDate", "false");
+        context.setCommentGeneratorConfiguration(commentGeneratorConfiguration);
+
         // 4. 加载详细
         loadContextDetail(context);
 
@@ -150,7 +164,6 @@ public class CodeGeneratorController {
         buildJavaClientGenerator(context);
         // 10. 构建table
         buildTables(context);
-
     }
 
     // 5. 构建plugin
@@ -173,6 +186,7 @@ public class CodeGeneratorController {
                 String value = parsePropertyTokens(property.value());
                 pluginConfiguration.addProperty(name, value);
             }
+            logger.info("add Plugin:[{}] to Context", type);
             context.addPluginConfiguration(pluginConfiguration);
         });
     }
@@ -186,6 +200,7 @@ public class CodeGeneratorController {
         jdbcConnectionConfiguration.setConnectionURL(driver.getUrl());
         jdbcConnectionConfiguration.setUserId(driver.getUsername());
         jdbcConnectionConfiguration.setPassword(driver.getPassword());
+        logger.info("add jdbc connection driver:[{}],url:[{}],username:[{}],password:[{}]", driver.getDriverClass(), driver.getUrl(), driver.getUsername(), driver.getPassword());
         context.setJdbcConnectionConfiguration(jdbcConnectionConfiguration);
     }
 
@@ -197,6 +212,7 @@ public class CodeGeneratorController {
         javaModelGeneratorConfiguration.addProperty("enableSubPackages", "true");
         javaModelGeneratorConfiguration.addProperty("trimStrings", "true");
 
+        
         // 调用扩展的SPI
         ServiceLoader<JavaModelGeneratorConfigurationCustomizer> javaModelGeneratorConfigurationCustomizers = ServiceLoader.load(JavaModelGeneratorConfigurationCustomizer.class);
         javaModelGeneratorConfigurationCustomizers.forEach(action -> action.customize(javaModelGeneratorConfiguration, model));

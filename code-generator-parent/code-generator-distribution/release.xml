@@ -9,6 +9,13 @@
     <fileSets>
         <fileSet>
             <includes>
+                <include>logs/**</include>
+                <include>works/**</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <includes>
                 <include>conf/**</include>
             </includes>
         </fileSet>

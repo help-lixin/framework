@@ -6,7 +6,6 @@ help/lixin/framework/code/generator/core/model/Driver.class
 help/lixin/framework/code/generator/core/customizer/JavaClientGeneratorConfigurationCustomizer.class
 help/lixin/framework/code/generator/core/util/CodeGeneratorHelp.class
 help/lixin/framework/code/generator/core/CodeGeneratorController.class
-help/lixin/framework/code/generator/core/model/ProjectConfig$Builder.class
 help/lixin/framework/code/generator/core/model/ProjectConfig.class
 help/lixin/framework/code/generator/core/util/ParseContext.class
 help/lixin/framework/code/generator/core/CodeGeneratorLaunch.class

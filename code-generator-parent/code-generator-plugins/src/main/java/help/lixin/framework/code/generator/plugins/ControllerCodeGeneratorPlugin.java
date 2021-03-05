@@ -1,5 +1,6 @@
 package help.lixin.framework.code.generator.plugins;
 
+import help.lixin.framework.code.generator.core.CodeGeneratorController;
 import help.lixin.framework.code.generator.core.annotation.Property;
 import help.lixin.framework.code.generator.core.annotation.Propertys;
 import help.lixin.framework.code.generator.strategy.controller.GeneratedControllerJavaFile;
@@ -8,6 +9,8 @@ import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.config.Context;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,9 @@ import java.util.Properties;
         @Property(name = "targetPackage", value = "${controller.targetPackage}")
 })
 public class ControllerCodeGeneratorPlugin extends PluginAdapter {
+
+    private final Logger logger = LoggerFactory.getLogger(ControllerCodeGeneratorPlugin.class);
+
     @Override
     public boolean validate(List<String> warnings) {
         return true;
@@ -35,6 +41,7 @@ public class ControllerCodeGeneratorPlugin extends PluginAdapter {
         // Service所在的package
         String serviceTargetPackage = properties.getProperty("targetServicePackage", null);
         if (null == targetProject || null == targetPackage || null == serviceTargetPackage) {
+            logger.warn("ignore Plugin ControllerCodeGeneratorPlugin");
             return generatedJavaFiles;
         }
         // 生成controller文件

@@ -39,4 +39,14 @@ public class Pom implements Serializable {
     public void setPomXmlTemplateFile(String pomXmlTemplateFile) {
         this.pomXmlTemplateFile = pomXmlTemplateFile;
     }
+
+    @Override
+    public String toString() {
+        return "Pom{" +
+                "pomXmlTemplateFile='" + pomXmlTemplateFile + '\'' +
+                ", groupId='" + groupId + '\'' +
+                ", artifactId='" + artifactId + '\'' +
+                ", version='" + version + '\'' +
+                '}';
+    }
 }

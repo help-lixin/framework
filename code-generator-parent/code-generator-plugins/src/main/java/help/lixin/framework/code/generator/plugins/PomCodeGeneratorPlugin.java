@@ -9,6 +9,8 @@ import org.mybatis.generator.api.XmlFormatter;
 import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.render.DocumentRenderer;
 import org.mybatis.generator.config.Context;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,6 +31,8 @@ import java.util.regex.Pattern;
 })
 public class PomCodeGeneratorPlugin extends PluginAdapter {
 
+    private final Logger logger = LoggerFactory.getLogger(PomCodeGeneratorPlugin.class);
+
     @Override
     public boolean validate(List<String> warnings) {
         Properties properties = ParseContext.parse(context, this.getClass());
@@ -36,6 +40,7 @@ public class PomCodeGeneratorPlugin extends PluginAdapter {
         URL resource = PomCodeGeneratorPlugin.class.getClassLoader().getResource(pomXmlTemplateFile);
         if (null == resource) {
             warnings.add("Not Found pom template:" + pomXmlTemplateFile);
+            logger.warn("ignore Plugin PomCodeGeneratorPlugin,Not Found pom template:[{}]", pomXmlTemplateFile);
             return false;
         }
         return true;
@@ -55,6 +60,7 @@ public class PomCodeGeneratorPlugin extends PluginAdapter {
         String pomXmlTemplateFile = properties.getProperty("pomXmlTemplateFile", null);
         String generatorPomXmlFileName = properties.getProperty("generatorPomXmlFileName");
         if (null == pomXmlTemplateFile || null == groupId || null == artifactId || null == version) {
+            logger.warn("ignore Plugin PomCodeGeneratorPlugin");
             return answer;
         }
 

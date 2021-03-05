@@ -1,5 +1,9 @@
 package help.lixin.framework.code.generator.core.util;
 
+import help.lixin.framework.code.generator.core.CodeGeneratorController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +15,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class CodeGeneratorHelp {
+    private static final Logger logger = LoggerFactory.getLogger(CodeGeneratorHelp.class);
+
     private static final String EXT_NAME = ".jar";
 
     /**
@@ -21,15 +27,26 @@ public abstract class CodeGeneratorHelp {
      */
     public static Properties loadExtProperties(String extPropertiesFile) {
         Properties properties = new Properties();
+        boolean isException = false;
         try {
-            URL resourceUrl = new URL(extPropertiesFile);
-            InputStream inputStream = resourceUrl.openConnection()
-                    .getInputStream();
-            properties.load(inputStream);
+            URL resource = CodeGeneratorHelp.class.getClassLoader().getResource(extPropertiesFile);
+            if (logger.isDebugEnabled()) {
+                logger.debug("load resource:[{}]", resource);
+            }
+            if (null != resource) {
+                InputStream inputStream = resource.openConnection()
+                        .getInputStream();
+                properties.load(inputStream);
+            }
         } catch (MalformedURLException ignore) {
-            // TODO logger
+            isException = true;
+            logger.error("load resource[{}] error:[{}]", extPropertiesFile, ignore);
         } catch (IOException e) {
-            // TODO logger
+            isException = true;
+            logger.error("load resource[{}] error:[{}]", extPropertiesFile, e);
+        }
+        if (isException) {
+            logger.warn("ignore load resource[{}]", extPropertiesFile);
         }
         return properties;
     }
@@ -46,6 +63,9 @@ public abstract class CodeGeneratorHelp {
         File[] files = path.toFile().listFiles((dir, name) -> name.endsWith(EXT_NAME));
         List<String> tempJars = Arrays.asList(files).stream().map(t -> t.getPath()).collect(Collectors.toList());
         jars.addAll(tempJars);
+        if (logger.isDebugEnabled()) {
+            logger.debug("load third part jars:[{}]", tempJars);
+        }
         return jars;
     }
 }

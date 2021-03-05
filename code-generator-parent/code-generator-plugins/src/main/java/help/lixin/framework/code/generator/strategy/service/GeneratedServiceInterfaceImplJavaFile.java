@@ -7,8 +7,12 @@ import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.JavaFormatter;
 import org.mybatis.generator.api.dom.DefaultJavaFormatter;
 import org.mybatis.generator.api.dom.java.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GeneratedServiceInterfaceImplJavaFile extends AbstractGeneratedJavaFile {
+
+    private final Logger logger = LoggerFactory.getLogger(GeneratedServiceInterfaceImplJavaFile.class);
 
     private GeneratedServiceInterfaceImplJavaFile() {
     }

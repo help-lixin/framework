@@ -9,6 +9,8 @@ import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.config.Context;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,8 @@ import java.util.Properties;
         @Property(name = "targetPackage", value = "${service.targetPackage}")
 })
 public class ServiceCodeGeneratorPlugin extends PluginAdapter {
+    private final Logger logger = LoggerFactory.getLogger(PomCodeGeneratorPlugin.class);
+
     @Override
     public boolean validate(List<String> warnings) {
         return true;
@@ -33,6 +37,7 @@ public class ServiceCodeGeneratorPlugin extends PluginAdapter {
         // package
         String targetPackage = properties.getProperty("targetPackage", null);
         if (null == targetProject || null == targetPackage) {
+            logger.warn("ignore Plugin ServiceCodeGeneratorPlugin");
             return generatedJavaFiles;
         }
         // 生成Service文件
