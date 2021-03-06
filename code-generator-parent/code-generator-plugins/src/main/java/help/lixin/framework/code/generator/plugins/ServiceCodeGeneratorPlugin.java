@@ -21,7 +21,7 @@ import java.util.Properties;
         @Property(name = "targetPackage", value = "${service.targetPackage}")
 })
 public class ServiceCodeGeneratorPlugin extends PluginAdapter {
-    private final Logger logger = LoggerFactory.getLogger(PomCodeGeneratorPlugin.class);
+    private final Logger logger = LoggerFactory.getLogger(ServiceCodeGeneratorPlugin.class);
 
     @Override
     public boolean validate(List<String> warnings) {

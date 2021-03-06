@@ -96,6 +96,10 @@ public class CodeGeneratorController {
             extProperties.put(Constants.CONTROLLER_TARGET_PROJECT, model.getControllerProject());
             extProperties.put(Constants.CONTROLLER_TARGET_PACKAGE, projectConfig.getControllerPackage());
 
+            extProperties.put(Constants.CONTROLLER_TEMPLATE_FILE, projectConfig.getControllerTemplate());
+            extProperties.put(Constants.SERVICE_TEMPLATE_FILE, projectConfig.getServiceTemplate());
+            extProperties.put(Constants.SERVICE_IMPL_TEMPLATE_FILE, projectConfig.getServiceImplTemplate());
+
             extProperties.put(Constants.SERVICE_TARGET_PROJECT, model.getServiceProject());
             extProperties.put(Constants.SERVICE_TARGET_PACKAGE, projectConfig.getServicePackage());
         }
@@ -212,7 +216,7 @@ public class CodeGeneratorController {
         javaModelGeneratorConfiguration.addProperty("enableSubPackages", "true");
         javaModelGeneratorConfiguration.addProperty("trimStrings", "true");
 
-        
+
         // 调用扩展的SPI
         ServiceLoader<JavaModelGeneratorConfigurationCustomizer> javaModelGeneratorConfigurationCustomizers = ServiceLoader.load(JavaModelGeneratorConfigurationCustomizer.class);
         javaModelGeneratorConfigurationCustomizers.forEach(action -> action.customize(javaModelGeneratorConfiguration, model));

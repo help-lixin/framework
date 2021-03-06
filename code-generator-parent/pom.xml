@@ -12,6 +12,7 @@
         <module>code-generator-core</module>
         <module>code-generator-plugins</module>
         <module>code-generator-distribution</module>
+        <module>code-generator-plugins2</module>
     </modules>
 
     <properties>

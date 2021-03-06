@@ -13,4 +13,6 @@ help/lixin/framework/code/generator/core/customizer/TableConfigurationCustomizer
 help/lixin/framework/code/generator/core/customizer/JavaModelGeneratorConfigurationCustomizer.class
 help/lixin/framework/code/generator/core/annotation/Propertys.class
 help/lixin/framework/code/generator/core/customizer/SqlMapGeneratorConfigurationCustomizer.class
+help/lixin/framework/code/generator/core/formatter/FreemarkerFormatter.class
+help/lixin/framework/code/generator/core/formatter/FreemarkerCompilationUnit.class
 help/lixin/framework/code/generator/core/model/Table.class

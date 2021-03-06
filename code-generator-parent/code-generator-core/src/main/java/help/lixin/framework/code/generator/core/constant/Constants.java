@@ -11,8 +11,12 @@ public class Constants {
 
     public static final String CONTROLLER_TARGET_PROJECT = "controller.targetProject";
     public static final String CONTROLLER_TARGET_PACKAGE = "controller.targetPackage";
+    public static final String CONTROLLER_TEMPLATE_FILE = "controller.templateFile";
 
 
     public static final String SERVICE_TARGET_PROJECT = "service.targetProject";
     public static final String SERVICE_TARGET_PACKAGE = "service.targetPackage";
+
+    public static final String SERVICE_TEMPLATE_FILE = "service.templateFile";
+    public static final String SERVICE_IMPL_TEMPLATE_FILE = "service.impl.templateFile";
 }

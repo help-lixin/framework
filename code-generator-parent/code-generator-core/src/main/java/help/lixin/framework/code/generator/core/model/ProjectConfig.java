@@ -6,6 +6,7 @@ public class ProjectConfig implements Serializable {
     // controller
     private String controllerProject = "src/main/java";
     private String controllerPackage = "help.lixin.xxx.controller";
+    private String controllerTemplate = "template/cotroller.ftl";
 
     // model
     private String modelProject = "src/main/java";
@@ -14,9 +15,14 @@ public class ProjectConfig implements Serializable {
     // service
     private String serviceProject = "src/main/java";
     private String servicePackage = "help.lixin.xxx.service";
+    private String serviceTemplate = "template/service.ftl";
+    private String serviceImplTemplate = "template/service_impl.ftl";
+
     // mapper
     private String mapperProject = "src/main/java";
     private String mapperPackage = "help.lixin.xxx.mapper";
+
+
     // mapper xml position
     private String mapperXmlProject = "src/main/resources";
     private String mapperXmlPackage = "mappers";
@@ -101,15 +107,42 @@ public class ProjectConfig implements Serializable {
         this.mapperXmlPackage = mapperXmlPackage;
     }
 
+    public String getControllerTemplate() {
+        return controllerTemplate;
+    }
+
+    public void setControllerTemplate(String controllerTemplate) {
+        this.controllerTemplate = controllerTemplate;
+    }
+
+    public String getServiceTemplate() {
+        return serviceTemplate;
+    }
+
+    public void setServiceTemplate(String serviceTemplate) {
+        this.serviceTemplate = serviceTemplate;
+    }
+
+    public String getServiceImplTemplate() {
+        return serviceImplTemplate;
+    }
+
+    public void setServiceImplTemplate(String serviceImplTemplate) {
+        this.serviceImplTemplate = serviceImplTemplate;
+    }
+
     @Override
     public String toString() {
         return "ProjectConfig{" +
                 "controllerProject='" + controllerProject + '\'' +
                 ", controllerPackage='" + controllerPackage + '\'' +
+                ", controllerTemplate='" + controllerTemplate + '\'' +
                 ", modelProject='" + modelProject + '\'' +
                 ", modelPackage='" + modelPackage + '\'' +
                 ", serviceProject='" + serviceProject + '\'' +
                 ", servicePackage='" + servicePackage + '\'' +
+                ", serviceTemplate='" + serviceTemplate + '\'' +
+                ", serviceImplTemplate='" + serviceImplTemplate + '\'' +
                 ", mapperProject='" + mapperProject + '\'' +
                 ", mapperPackage='" + mapperPackage + '\'' +
                 ", mapperXmlProject='" + mapperXmlProject + '\'' +

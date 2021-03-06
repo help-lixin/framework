@@ -1,7 +1,9 @@
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/formatter/FreemarkerFormatter.java
 /Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/model/Driver.java
 /Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/util/CodeGeneratorHelp.java
 /Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/annotation/Property.java
 /Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/constant/Constants.java
+/Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/formatter/FreemarkerCompilationUnit.java
 /Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/model/Table.java
 /Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/customizer/JavaClientGeneratorConfigurationCustomizer.java
 /Users/lixin/FwRepository/framework/code-generator-parent/code-generator-core/src/main/java/help/lixin/framework/code/generator/core/util/ParseContext.java

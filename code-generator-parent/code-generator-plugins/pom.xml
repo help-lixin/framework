@@ -22,10 +22,5 @@
             <artifactId>code-generator-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>help.lixin.framework.code.generator</groupId>
-            <artifactId>code-generator-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 </project>

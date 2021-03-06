@@ -9,6 +9,7 @@
         <module name="code-generator-core" />
         <module name="code-generator-distribution" />
         <module name="code-generator-plugins" />
+        <module name="code-generator-plugins2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

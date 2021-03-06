@@ -12,9 +12,12 @@ pom:
   artifactId: test-service
   version: 1.0.0
 projectConfig:
+  controllerTemplate: template/controller.ftl
 #  controllerProject: "src/main/java"
   controllerPackage: "help.lixin.xxx.controller"
 #  serviceProject: "src/main/java"
+  serviceTemplate: template/service.ftl
+  serviceImplTemplate: template/serviceImpl.ftl
   servicePackage: "help.lixin.xxx.service"
 #  modelProject: "src/main/java"
   modelPackage: "help.lixin.xxx.model"
