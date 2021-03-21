@@ -1,0 +1,32 @@
+extPropertiesFile: var.properties
+projectName: test-service
+thirdPartyJarPath: ext-lib
+driver:
+  driverClass: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/order_db
+  username: root
+  password: 123456
+pom:
+  pomXmlTemplateFile: template/pom.xml
+  groupId: help.lixin.code.generator
+  artifactId: test-service
+  version: 1.0.0
+projectConfig:
+#  controllerProject: "src/main/java"
+  controllerPackage: "help.lixin.xxx.controller"
+#  serviceProject: "src/main/java"
+  servicePackage: "help.lixin.xxx.service"
+#  modelProject: "src/main/java"
+  modelPackage: "help.lixin.xxx.model"
+#  mapperProject: "src/main/java"
+  mapperPackage: "help.lixin.xxx.mapper"
+#  mapperXmlProject: "src/main/resources"
+  mapperXmlPackage: "mappers"
+tables:
+  - tableName: t_order_1
+    entityName: Order
+    mapperName: OrderMapper
+
+  - tableName: t_order_2
+    entityName: Order2
+    mapperName: Order2Mapper
