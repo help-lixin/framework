@@ -64,9 +64,9 @@ public class ModuleInitController implements SmartLifecycle {
 
             List<PluginInfo> plugins = pluginsLoadService.getPlugins();
             // 公共模块
-            Optional<PluginInfo> commonModule = plugins.stream().filter(plugin -> plugin.getPluginType().equals(PluginType.COMMON)).findFirst();
+            Optional<PluginInfo> commonModule = plugins.stream().filter(plugin -> plugin.getPluginType().equals(PluginType.COMMON)).filter(plugin->plugin.getEnabled()).findFirst();
             // 业务模块
-            List<PluginInfo> businessMoundles = plugins.stream().filter(plugin -> plugin.getPluginType().equals(PluginType.PLUGIN)).collect(Collectors.toList());
+            List<PluginInfo> businessMoundles = plugins.stream().filter(plugin -> plugin.getPluginType().equals(PluginType.PLUGIN)).filter(plugin->plugin.getEnabled()).collect(Collectors.toList());
 
             // 1. 加载公共模块
             loadCommonModule(commonModule);

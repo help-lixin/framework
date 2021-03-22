@@ -1,0 +1,1 @@
+<module name="hello-service" version="1.0.1" desc="hello service" enabled="true" class="help.lixin.hello.Application" properties-file="application.properties"/>

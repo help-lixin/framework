@@ -17,6 +17,8 @@
  */
 package help.lixin.framework.module.service;
 
+import org.springframework.context.ConfigurableApplicationContext;
+
 import java.util.Date;
 
 /**
@@ -29,4 +31,5 @@ public interface Module {
     void destroy();
     ClassLoader getChildClassLoader();
     ModuleConfig getModuleConfig();
+    ConfigurableApplicationContext getContext();
 }

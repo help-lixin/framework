@@ -1,5 +1,6 @@
 package help.lixin.framework.module;
 
+import help.lixin.framework.module.PluginDesc;
 import help.lixin.framework.module.parse.ModuleXMLParse;
 
 public class PluginParseTest {

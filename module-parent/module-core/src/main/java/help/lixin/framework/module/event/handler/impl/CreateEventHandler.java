@@ -17,7 +17,7 @@ public class CreateEventHandler extends AbstractEventHandler implements EventHan
     @Override
     public void handler(PluginInfo pluginInfo) {
         ModuleConfig moduleConfig = transformToModuleConfig(pluginInfo);
-
+        
         // 直接注册
         Module module = moduleLoader.load(moduleConfig);
         moduleManager.register(module);

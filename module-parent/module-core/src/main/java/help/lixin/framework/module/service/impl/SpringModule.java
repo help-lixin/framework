@@ -40,16 +40,24 @@ public class SpringModule implements Module {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringModule.class);
 
-    /**  模块的配置信息 */
+    /**
+     * 模块的配置信息
+     */
     ModuleConfig moduleConfig;
 
-    /**  模块的名称 */
+    /**
+     * 模块的名称
+     */
     private final String name;
 
-    /**  模块的版本 */
+    /**
+     * 模块的版本
+     */
     private final String version;
 
-    /**  模块启动的时间 */
+    /**
+     * 模块启动的时间
+     */
     private final Date creation;
 
     private final ConfigurableApplicationContext applicationContext;
@@ -107,6 +115,7 @@ public class SpringModule implements Module {
 
     /**
      * 关闭Spring上下文
+     *
      * @param applicationContext
      */
     private static void closeQuietly(ConfigurableApplicationContext applicationContext) {
@@ -128,4 +137,8 @@ public class SpringModule implements Module {
         return this.applicationContext.getClassLoader();
     }
 
+    @Override
+    public ConfigurableApplicationContext getContext() {
+        return applicationContext;
+    }
 }

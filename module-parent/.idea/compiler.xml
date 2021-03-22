@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="module-core" />
+        <module name="plugin-example" />
+        <module name="module-distribution" />
+        <module name="module-example" />
         <module name="plugin-model" />
         <module name="plugin-core" />
-        <module name="plugin-example" />
+        <module name="module-boot" />
         <module name="module-model" />
-        <module name="module-example" />
       </profile>
     </annotationProcessing>
   </component>
