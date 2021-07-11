@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/spring-boot-starter-data-redis-ext/spring-boot-starter-data-redis-ext.iml" filepath="$PROJECT_DIR$/spring-boot-starter-data-redis-ext/spring-boot-starter-data-redis-ext.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-boot-starter-data-redis-ext-example/spring-boot-starter-data-redis-ext-example.iml" filepath="$PROJECT_DIR$/spring-boot-starter-data-redis-ext-example/spring-boot-starter-data-redis-ext-example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-boot-starter-data-redis-ext-parent.iml" filepath="$PROJECT_DIR$/spring-boot-starter-data-redis-ext-parent.iml" />
+    </modules>
+  </component>
+</project>
